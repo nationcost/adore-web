@@ -78,9 +78,8 @@ const Home: React.FC = () => {
         </h1>
         
         <div className="mt-6 mb-6 md:mt-8 md:mb-8 space-y-4 max-w-3xl mx-auto px-4">
-          <h2 className="text-lg sm:text-xl md:text-2xl text-gray-300 font-medium leading-relaxed">
-            Elevate your server with powerful moderation, premium features, <br className="hidden md:block"/>
-            and seamless community management.
+          <h2 className="text-base sm:text-lg md:text-xl text-gray-300 font-medium leading-relaxed">
+            Elevate your server with powerful moderation, premium features, and seamless community management.
           </h2>
           <div className="w-16 h-1 bg-white/10 rounded-full mx-auto mt-4 md:mt-6"></div>
         </div>
