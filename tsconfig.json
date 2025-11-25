@@ -24,8 +24,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+
+    /* Memory optimization */
+    "incremental": false,
+    "assumeChangesOnlyAffectDirectDependencies": true
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist", "build"]
 }
