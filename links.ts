@@ -1,0 +1,6 @@
+const links = {
+  discordInvite: "https://discord.gg/zGGcKv6Ua9",
+  purchase: "https://discord.com/oauth2/authorize?client_id=1439529198325596172"
+};
+
+export default links;
