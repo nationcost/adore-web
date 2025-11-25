@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -9,11 +9,36 @@ import FAQ from './pages/FAQ';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 
-// Wrapper to reset scroll on route change
+// Redirect components
+const InviteRedirect = () => {
+  React.useEffect(() => {
+    window.location.href = 'https://discord.com/oauth2/authorize?client_id=1439529198325596172';
+  }, []);
+  return null;
+};
+
+const ServerRedirect = () => {
+  React.useEffect(() => {
+    window.location.href = 'https://discord.gg/dyjn7wzdyH';
+  }, []);
+  return null;
+};
+
+// Wrapper to reset scroll and update title
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   React.useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Update page title based on route
+    const titles: { [key: string]: string } = {
+      '/': 'adore',
+      '/commands': 'adore | commands',
+      '/faq': 'adore | information',
+      '/terms': 'adore | terms',
+      '/privacy': 'adore | privacy',
+    };
+    document.title = titles[pathname] || 'adore';
   }, [pathname]);
   return null;
 };
@@ -60,6 +85,9 @@ const App: React.FC = () => {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/invite" element={<InviteRedirect />} />
+            <Route path="/server" element={<ServerRedirect />} />
+            <Route path="/help" element={<Navigate to="/commands" replace />} />
           </Routes>
         </main>
 

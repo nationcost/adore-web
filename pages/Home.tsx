@@ -86,19 +86,15 @@ const Home: React.FC = () => {
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-4 md:mt-8 w-full sm:w-auto px-6 sm:px-0">
           <a 
-            href={links.discordInvite}
-            target="_blank"
-            rel="noreferrer"
+            href="/server"
             className="flex items-center justify-center gap-3 bg-white hover:bg-gray-200 text-black px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.4)] w-full sm:w-auto"
           >
             <DiscordLogo size={20} className="md:w-6 md:h-6" />
-            <span>Invite to Discord</span>
+            <span>Join Discord</span>
           </a>
           
           <a 
-            href={links.purchase}
-            target="_blank"
-            rel="noreferrer"
+            href="/invite"
             className="group relative flex items-center justify-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 w-full sm:w-auto overflow-hidden"
           >
              {/* Inner Top Highlight */}
@@ -106,7 +102,7 @@ const Home: React.FC = () => {
              {/* Gradient Overlay */}
              <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
 
-            <span className="relative z-10">Purchase</span>
+            <span className="relative z-10">Invite Bot</span>
             <ArrowRight size={18} className="relative z-10 md:w-5 md:h-5" />
           </a>
         </div>
