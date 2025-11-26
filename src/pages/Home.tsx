@@ -2,9 +2,9 @@
 import React, { useMemo } from 'react';
 import { Shield, Zap, Crown, Hand, Gavel, Gift, ArrowRight } from 'lucide-react';
 import FeatureCard from '../components/FeatureCard';
-import { Feature } from '../types';
-import links from '../links.ts';
-import { commandsData } from '../commands';
+import { Feature } from '../utils/types';
+import links from '../utils/links';
+import { commandsData } from '../utils/commands';
 import SpotlightCard from '../components/SpotlightCard';
 
 const DiscordLogo = ({ size = 24, className = "" }: { size?: number, className?: string }) => (

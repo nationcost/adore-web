@@ -1,6 +1,6 @@
 import React from 'react';
 import { Activity, Wifi, Server, Users } from 'lucide-react';
-import { ShardStatus } from '../types';
+import { ShardStatus } from '../utils/types';
 import SpotlightCard from '../components/SpotlightCard';
 
 const shards: ShardStatus[] = [

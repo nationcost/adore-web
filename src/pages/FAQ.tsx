@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { FaqItem } from '../types';
-import links from '../links.ts';
+import { FaqItem } from '../utils/types';
+import links from '../utils/links';
 import SpotlightCard from '../components/SpotlightCard';
 
 const DiscordLogo = ({ size = 24, className = "" }: { size?: number, className?: string }) => (

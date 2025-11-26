@@ -15,6 +15,7 @@ import SpotifyCallback from './pages/SpotifyCallback';
 import Profile from './pages/Profile';
 import Koi from './pages/Koi';
 import Apoorva from './pages/Apoorva';
+import DynamicProfile from './pages/DynamicProfile';
 import NotFound from './pages/NotFound';
 import { SpotlightProvider } from './components/SpotlightCard';
 
@@ -96,13 +97,18 @@ const App: React.FC = () => {
             <Route path="/server" element={<ServerRedirect />} />
             <Route path="/help" element={<Navigate to="/commands" replace />} />
             <Route path="/callback" element={<SpotifyCallback />} />
-            <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* Standalone Profile Pages - No Layout */}
         <Route path="/me" element={<Profile />} />
         <Route path="/koi" element={<Koi />} />
         <Route path="/apoorva" element={<Apoorva />} />
+        
+        {/* Dynamic Profile - Fetches from API */}
+        <Route path="/:username" element={<DynamicProfile />} />
+        
+        {/* 404 - Must be last */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

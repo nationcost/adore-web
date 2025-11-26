@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Eye, Heart, Disc, Play, Pause, SkipBack, SkipForward } from 'lucide-react';
-import { commandsData } from '../commands';
+import { commandsData } from '../utils/commands';
 import SpotlightCard from '../components/SpotlightCard';
 
 const DiscordIcon = ({ className = "" }: { className?: string }) => (

@@ -2,8 +2,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, X, Command as CommandIcon, Hash, Layers } from 'lucide-react';
 import CommandCard from '../components/CommandCard';
-import { commandsData } from '../commands';
-import { Command } from '../types';
+import { commandsData } from '../utils/commands';
+import { Command } from '../utils/types';
 import SpotlightCard from '../components/SpotlightCard';
 
 // Transform JSON data to Command[] and Deduplicate

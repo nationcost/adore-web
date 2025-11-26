@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Command } from '../types';
+import { Command } from '../utils/types';
 import { Copy, ChevronDown, Shield, Terminal, Check } from 'lucide-react';
 
 interface Props {

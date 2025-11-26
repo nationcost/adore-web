@@ -1,20 +1,82 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# ADORE Website
 
-# Run and deploy your AI Studio app
+Official website for ADORE Discord bot.
 
-This contains everything you need to run your app locally.
+## 🚀 Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1dlARsrHkwx5ATBrcOqTbyVg3fp2QX1sq
+- **Frontend:** React + TypeScript
+- **Styling:** Tailwind CSS
+- **Build:** Vite
+- **Hosting:** cPanel (adore.rest)
+- **API:** Cloudflare Workers (api.adore.rest)
 
-## Run Locally
+## 📁 Project Structure
 
-**Prerequisites:**  Node.js
+```
+adore-web/
+├── src/
+│   ├── components/      # React components
+│   ├── pages/          # Page components
+│   ├── utils/          # Utilities, types, data
+│   ├── App.tsx         # Main app component
+│   ├── index.tsx       # Entry point
+│   └── index.css       # Global styles
+├── public/             # Static assets
+│   └── media/
+│       ├── avatar/     # Profile avatars
+│       ├── music/      # Music files
+│       └── covers/     # Album covers
+├── dist/               # Build output
+└── index.html          # HTML template
+```
 
+## 🛠️ Development
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 🚀 Deployment
+
+```bash
+# Build
+npm run build
+
+# Push to GitHub
+git add .
+git commit -m "Update"
+git push
+
+# Deploy to cPanel
+cd ~/public_html/adore-web
+git pull
+cp -r dist/* ../
+cp -r public/media ../
+```
+
+## 🔗 Links
+
+- Website: https://adore.rest
+- API: https://api.adore.rest
+- Discord: https://discord.gg/dyjn7wzdyH
+
+## 📝 Profile Pages
+
+- **Static:** `/me`, `/koi`, `/apoorva` (hardcoded)
+- **Dynamic:** `/:username` (fetches from API)
+
+## 🔑 Environment
+
+API endpoint is configured in `src/pages/DynamicProfile.tsx`:
+```typescript
+const API_URL = 'https://adore-api.vwsnx.workers.dev';
+```
+
+Update this to `https://api.adore.rest` once Cloudflare domain is active.
