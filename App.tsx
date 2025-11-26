@@ -13,6 +13,7 @@ import Privacy from './pages/Privacy';
 import Authorized from './pages/Authorized';
 import SpotifyCallback from './pages/SpotifyCallback';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 import { SpotlightProvider } from './components/SpotlightCard';
 
 // Redirect components
@@ -90,6 +91,7 @@ const App: React.FC = () => {
             <Route path="/invite" element={<InviteRedirect />} />
             <Route path="/server" element={<ServerRedirect />} />
             <Route path="/help" element={<Navigate to="/commands" replace />} />
+            <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* Standalone Profile Page - No Layout */}
