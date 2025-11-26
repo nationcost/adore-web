@@ -1,4 +1,5 @@
 import React from 'react';
+import SpotlightCard from '../components/SpotlightCard';
 
 const Privacy: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ const Privacy: React.FC = () => {
         <p className="text-gray-400">Effective Date: March 18, 2025, 8:23 PM PST</p>
       </div>
 
-      <div className="bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-8 md:p-12 space-y-10 text-gray-300 leading-relaxed font-light">
+      <SpotlightCard className="rounded-[2.5rem] p-8 md:p-12 space-y-10 text-gray-300 leading-relaxed font-light">
         
         <section>
             <h2 className="text-2xl font-bold text-white mb-4">1. INTRODUCTION</h2>
@@ -95,7 +96,7 @@ const Privacy: React.FC = () => {
                 For questions or concerns about this Privacy Policy, please contact us at: <a href="mailto:contact@adore.rest" className="text-blurple hover:underline">contact@adore.rest</a>
             </p>
         </section>
-      </div>
+      </SpotlightCard>
     </div>
   );
 };

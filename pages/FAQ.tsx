@@ -1,7 +1,9 @@
+
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { FaqItem } from '../types';
 import links from '../links.ts';
+import SpotlightCard from '../components/SpotlightCard';
 
 const DiscordLogo = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg 
@@ -56,33 +58,29 @@ const faqs: FaqItem[] = [
 
 const AccordionItem: React.FC<{ item: FaqItem; isOpen: boolean; toggle: () => void }> = ({ item, isOpen, toggle }) => {
   return (
-    <div 
-      className={`mb-6 group bg-white/[0.04] backdrop-blur-2xl backdrop-saturate-150 border border-white/10 rounded-3xl overflow-hidden transition-all duration-300 ${
-        isOpen 
-          ? 'shadow-xl shadow-black/40 border-white/20' 
-          : 'hover:border-white/20 hover:bg-white/[0.08] hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40'
-      }`}
-    >
-      <button
-        onClick={toggle}
-        className="w-full flex items-center justify-between p-8 text-left bg-transparent"
-      >
-        <span className="text-xl font-bold text-white pr-4">{item.question}</span>
-        <ChevronDown className={`text-gray-400 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex-shrink-0 ${isOpen ? 'rotate-180 text-white' : ''}`} />
-      </button>
-      
-      <div 
-        className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
-      >
-        <div className="overflow-hidden">
-            <div className="px-8 pb-8 pt-0">
-                <div className={`h-px w-full bg-white/10 mb-6 transition-opacity duration-300 ${isOpen ? 'opacity-100 delay-150' : 'opacity-0'}`}></div>
-                <p className={`text-gray-400 leading-relaxed text-sm font-medium transition-all duration-500 ${isOpen ? 'opacity-100 translate-y-0 delay-200' : 'opacity-0 -translate-y-4'}`}>
-                    {item.answer}
-                </p>
+    <div className="mb-6 relative">
+        <SpotlightCard className={`rounded-3xl ${isOpen ? 'border-white/20' : ''}`}>
+            <button
+                onClick={toggle}
+                className="w-full flex items-center justify-between p-8 text-left bg-transparent relative z-20"
+            >
+                <span className="text-xl font-bold text-white pr-4">{item.question}</span>
+                <ChevronDown className={`text-gray-400 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex-shrink-0 ${isOpen ? 'rotate-180 text-white' : ''}`} />
+            </button>
+            
+            <div 
+                className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] relative z-20 ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+            >
+                <div className="overflow-hidden">
+                    <div className="px-8 pb-8 pt-0">
+                        <div className={`h-px w-full bg-white/10 mb-6 transition-opacity duration-300 ${isOpen ? 'opacity-100 delay-150' : 'opacity-0'}`}></div>
+                        <p className={`text-gray-400 leading-relaxed text-sm font-medium transition-all duration-500 ${isOpen ? 'opacity-100 translate-y-0 delay-200' : 'opacity-0 -translate-y-4'}`}>
+                            {item.answer}
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-      </div>
+        </SpotlightCard>
     </div>
   );
 };
@@ -97,8 +95,8 @@ const FAQ: React.FC = () => {
   return (
     <div className="flex flex-col items-center w-full animate-fade-in pb-20">
       <div className="text-center mb-16 mt-8">
-        <h1 className="text-5xl font-black text-white mb-4 tracking-tight">Frequently Asked Questions</h1>
-        <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">Frequently Asked Questions</h1>
+        <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
           Find answers to common questions about ADORE and server management.
         </p>
       </div>
@@ -115,22 +113,23 @@ const FAQ: React.FC = () => {
       </div>
 
       {/* CTA Box */}
-      <div className="w-full max-w-3xl mt-12 p-12 bg-white/[0.04] backdrop-blur-3xl backdrop-saturate-150 border border-white/10 rounded-[2.5rem] text-center relative overflow-hidden shadow-2xl shadow-black/40 hover:border-white/20 transition-colors duration-300">
-         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
-         <h3 className="text-3xl font-bold text-white mb-4 relative z-10">Still have questions?</h3>
-         <p className="text-gray-400 mb-10 max-w-lg mx-auto relative z-10">
-           Join our Discord community for additional support and to connect with other ADORE users.
-         </p>
-         
-         <a 
-            href={links.discordInvite}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-3 bg-white hover:bg-gray-200 text-black px-8 py-4 rounded-2xl font-bold text-lg transition-all hover:shadow-xl hover:shadow-white/20 hover:-translate-y-0.5 relative z-10"
-         >
-           <DiscordLogo size={22} />
-           <span>Join Discord</span>
-         </a>
+      <div className="w-full max-w-3xl mt-12">
+        <SpotlightCard className="p-8 md:p-12 rounded-[2.5rem] text-center">
+             <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10">Still have questions?</h3>
+             <p className="text-sm md:text-base text-gray-400 mb-8 md:mb-10 max-w-lg mx-auto relative z-10">
+               Join our Discord community for additional support and to connect with other ADORE users.
+             </p>
+             
+             <a 
+                href={links.discordInvite}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-3 bg-white hover:bg-gray-200 text-black px-6 py-3 md:px-8 md:py-4 rounded-2xl font-bold text-base md:text-lg transition-all hover:shadow-xl hover:shadow-white/20 hover:-translate-y-0.5 relative z-10"
+             >
+               <DiscordLogo size={22} />
+               <span>Join Discord</span>
+             </a>
+        </SpotlightCard>
       </div>
     </div>
   );

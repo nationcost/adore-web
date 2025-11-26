@@ -1,4 +1,5 @@
 import React from 'react';
+import SpotlightCard from '../components/SpotlightCard';
 
 const Terms: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ const Terms: React.FC = () => {
         <p className="text-gray-400">Effective Date: August 19, 2025, 6:23 PM PST</p>
       </div>
 
-      <div className="bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-8 md:p-12 space-y-10 text-gray-300 leading-relaxed font-light">
+      <SpotlightCard className="rounded-[2.5rem] p-8 md:p-12 space-y-10 text-gray-300 leading-relaxed font-light">
         
         <section>
             <h2 className="text-2xl font-bold text-white mb-4">1. ACCEPTANCE OF TERMS</h2>
@@ -132,7 +133,7 @@ const Terms: React.FC = () => {
             <h2 className="text-2xl font-bold text-white mb-4">13. AMENDMENTS</h2>
             <ul className="space-y-4">
                 <li><strong>13.1</strong> Adore may modify this Agreement at any time without notice.</li>
-                <li><strong>13.2</strong> Continued use after updates constitutes acceptance.</li>
+                <li><strong>13.2</strong> Continued use of the services after updates constitutes acceptance.</li>
                 <li><strong>13.3</strong> Violations of updated terms may result in immediate termination.</li>
             </ul>
         </section>
@@ -148,7 +149,7 @@ const Terms: React.FC = () => {
         <div className="pt-8 border-t border-white/5 text-center text-gray-500">
              <p>For questions, contact <a href="mailto:contact@adore.rest" className="text-blurple hover:underline">contact@adore.rest</a>.</p>
         </div>
-      </div>
+      </SpotlightCard>
     </div>
   );
 };

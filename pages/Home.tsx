@@ -1,9 +1,11 @@
+
 import React, { useMemo } from 'react';
 import { Shield, Zap, Crown, Hand, Gavel, Gift, ArrowRight } from 'lucide-react';
 import FeatureCard from '../components/FeatureCard';
 import { Feature } from '../types';
 import links from '../links.ts';
 import { commandsData } from '../commands';
+import SpotlightCard from '../components/SpotlightCard';
 
 const DiscordLogo = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg 
@@ -73,36 +75,45 @@ const Home: React.FC = () => {
       
       {/* HERO SECTION */}
       <section className="min-h-[60vh] md:min-h-[85vh] flex flex-col justify-center items-center text-center w-full max-w-5xl mx-auto animate-fade-in pt-8 md:pt-20">
-        <h1 className="text-6xl sm:text-8xl md:text-[10rem] font-black tracking-tight text-white leading-none select-none drop-shadow-2xl">
+        <h1 className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tight text-white leading-none select-none drop-shadow-2xl">
           ADORE
         </h1>
         
-        <div className="mt-6 mb-6 md:mt-8 md:mb-8 space-y-4 max-w-3xl mx-auto px-4">
-          <h2 className="text-base sm:text-lg md:text-xl text-gray-300 font-medium leading-relaxed">
-            Elevate your server with powerful moderation, premium features, and seamless community management.
-          </h2>
-          <div className="w-16 h-1 bg-white/10 rounded-full mx-auto mt-4 md:mt-6"></div>
+        {/* Simple Subtitle */}
+        <div className="mt-6 mb-8 w-full max-w-2xl mx-auto px-4">
+             <h2 className="text-sm sm:text-base md:text-lg font-medium leading-relaxed text-gray-400">
+               Elevate your server with powerful moderation, premium features, <br className="hidden md:block"/> and seamless community management.
+             </h2>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-4 md:mt-8 w-full sm:w-auto px-6 sm:px-0">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-2 md:mt-4 w-full sm:w-auto px-6 sm:px-0">
           <a 
-            href="/server"
-            className="flex items-center justify-center gap-3 bg-white hover:bg-gray-200 text-black px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.4)] w-full sm:w-auto"
-          >
-            <DiscordLogo size={20} className="md:w-6 md:h-6" />
-            <span>Join Discord</span>
-          </a>
-          
-          <a 
-            href="/invite"
-            className="group relative flex items-center justify-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 w-full sm:w-auto overflow-hidden"
+            href={links.discordInvite}
+            target="_blank"
+            rel="noreferrer"
+            className="group relative flex items-center justify-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 w-full sm:w-auto overflow-hidden backdrop-blur-xl"
           >
              {/* Inner Top Highlight */}
              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
              {/* Gradient Overlay */}
              <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
 
-            <span className="relative z-10">Invite Bot</span>
+            <DiscordLogo size={20} className="relative z-10 md:w-6 md:h-6" />
+            <span className="relative z-10">Invite to Discord</span>
+          </a>
+          
+          <a 
+            href={links.purchase}
+            target="_blank"
+            rel="noreferrer"
+            className="group relative flex items-center justify-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 w-full sm:w-auto overflow-hidden backdrop-blur-xl"
+          >
+             {/* Inner Top Highlight */}
+             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+             {/* Gradient Overlay */}
+             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+
+            <span className="relative z-10">Purchase</span>
             <ArrowRight size={18} className="relative z-10 md:w-5 md:h-5" />
           </a>
         </div>
@@ -116,10 +127,10 @@ const Home: React.FC = () => {
       <section className="w-full py-16 md:py-24">
         <div className="text-center mb-16 md:mb-24 animate-slide-up" style={{animationDelay: '0.1s'}}>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
-            Everything You <br className="block sm:hidden" /> Need, All-In-One
+            All you need in one place.
           </h2>
           <p className="text-gray-400 text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto px-4 leading-relaxed">
-            Replace multiple bots with one powerful solution. ADORE delivers comprehensive server management with enterprise-grade security and intuitive controls.
+            adore brings complete server management with solid security and smooth, intuitive controls.
           </p>
         </div>
 
@@ -147,3 +158,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+    

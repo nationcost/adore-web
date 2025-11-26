@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import links from '../links.ts';
+import SpotlightCard from './SpotlightCard';
 
 const DiscordLogo = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
   <svg 
@@ -104,10 +106,15 @@ const Navbar: React.FC = () => {
               href={links.discordInvite}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 bg-white hover:bg-gray-200 text-black px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_-5px_rgba(255,255,255,0.5)] hover:scale-105 active:scale-95"
+              className="group relative flex items-center gap-2 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 overflow-hidden active:scale-95 backdrop-blur-xl"
             >
-              <DiscordLogo size={18} />
-              <span>Discord</span>
+              {/* Inner Top Highlight */}
+              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+
+              <DiscordLogo size={18} className="relative z-10" />
+              <span className="relative z-10">Discord</span>
             </a>
           </div>
 
@@ -122,13 +129,8 @@ const Navbar: React.FC = () => {
           {/* Mobile Menu Dropdown (True iOS Glass Sheet) */}
           {mobileMenuOpen && (
             <div className="absolute top-full left-0 right-0 mt-4 mx-1 z-[70] animate-menu-spring origin-top">
-              {/* The Glass Sheet - Updated to Whitish Rich Glass */}
-              <div className="relative bg-white/[0.04] backdrop-blur-3xl backdrop-saturate-150 border border-white/10 rounded-[32px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] overflow-hidden">
-                
-                {/* Inner highlight for 3D glass feel */}
-                <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-70"></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none"></div>
-
+              {/* The Glass Sheet - Updated to use SpotlightCard for premium feel */}
+              <SpotlightCard className="rounded-[32px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)]">
                 <div className="flex flex-col p-2 relative z-10">
                   <div className="flex flex-col">
                     <NavLink
@@ -154,14 +156,19 @@ const Navbar: React.FC = () => {
                       href={links.discordInvite}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex justify-center items-center gap-3 bg-white active:bg-gray-200 text-black py-4 rounded-2xl font-bold text-lg shadow-lg shadow-white/10 transition-transform active:scale-[0.98]"
+                      className="group relative flex justify-center items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 py-4 rounded-2xl font-bold text-lg transition-all active:scale-[0.98] overflow-hidden shadow-lg shadow-black/20 backdrop-blur-xl"
                     >
-                      <DiscordLogo size={22} />
-                      Join Discord
+                      {/* Inner Top Highlight */}
+                      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+
+                      <DiscordLogo size={22} className="relative z-10" />
+                      <span className="relative z-10">Join Discord</span>
                     </a>
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </div>
           )}
         </nav>

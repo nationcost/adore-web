@@ -1,6 +1,7 @@
 import React from 'react';
 import { Activity, Wifi, Server, Users } from 'lucide-react';
 import { ShardStatus } from '../types';
+import SpotlightCard from '../components/SpotlightCard';
 
 const shards: ShardStatus[] = [
   {
@@ -24,60 +25,53 @@ const shards: ShardStatus[] = [
 ];
 
 const StatusCard: React.FC<{ shard: ShardStatus }> = ({ shard }) => (
-  <div className="group relative bg-dark-700 border border-white/5 rounded-[2.5rem] p-8 overflow-hidden hover:border-white/10 hover:shadow-2xl hover:shadow-black/50 transition-all duration-500">
-    
-    {/* Inner Top Highlight */}
-    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-    <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
-
-    <div className="relative z-10">
-        <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-          <div className="flex flex-col">
-            <h3 className="text-xl font-bold text-white tracking-tight">Shard {shard.id}</h3>
-            <span className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                <Activity size={12} /> {shard.lastUpdated}
-            </span>
-          </div>
-          <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase flex items-center gap-2 ${
-            shard.status === 'Operational' ? 'bg-green-500/10 text-green-500 border border-green-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20'
-          }`}>
-            <span className={`w-2 h-2 rounded-full ${shard.status === 'Operational' ? 'bg-green-500' : 'bg-red-500'} animate-pulse`} />
-            {shard.status}
-          </div>
+  <SpotlightCard className="p-8 rounded-[2.5rem]">
+      <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
+        <div className="flex flex-col">
+          <h3 className="text-xl font-bold text-white tracking-tight">Shard {shard.id}</h3>
+          <span className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+              <Activity size={12} /> {shard.lastUpdated}
+          </span>
         </div>
-
-        <div className="grid grid-cols-2 gap-8">
-          <div>
-            <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">Uptime</p>
-            <p className="text-white font-mono font-semibold flex items-center gap-2">
-                <Activity size={16} className="text-gray-600" />
-                {shard.uptime}
-            </p>
-          </div>
-          <div>
-            <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">Latency</p>
-            <p className="text-white font-mono font-semibold flex items-center gap-2">
-                <Wifi size={16} className="text-gray-600" />
-                {shard.latency}
-            </p>
-          </div>
-          <div>
-            <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">Servers</p>
-            <p className="text-white font-mono font-semibold flex items-center gap-2">
-                <Server size={16} className="text-gray-600" />
-                {shard.servers.toLocaleString()}
-            </p>
-          </div>
-          <div>
-            <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">Users</p>
-            <p className="text-white font-mono font-semibold flex items-center gap-2">
-                <Users size={16} className="text-gray-600" />
-                {shard.users.toLocaleString()}
-            </p>
-          </div>
+        <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase flex items-center gap-2 ${
+          shard.status === 'Operational' ? 'bg-green-500/10 text-green-500 border border-green-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20'
+        }`}>
+          <span className={`w-2 h-2 rounded-full ${shard.status === 'Operational' ? 'bg-green-500' : 'bg-red-500'} animate-pulse`} />
+          {shard.status}
         </div>
-    </div>
-  </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-8">
+        <div>
+          <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">Uptime</p>
+          <p className="text-white font-mono font-semibold flex items-center gap-2">
+              <Activity size={16} className="text-gray-600" />
+              {shard.uptime}
+          </p>
+        </div>
+        <div>
+          <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">Latency</p>
+          <p className="text-white font-mono font-semibold flex items-center gap-2">
+              <Wifi size={16} className="text-gray-600" />
+              {shard.latency}
+          </p>
+        </div>
+        <div>
+          <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">Servers</p>
+          <p className="text-white font-mono font-semibold flex items-center gap-2">
+              <Server size={16} className="text-gray-600" />
+              {shard.servers.toLocaleString()}
+          </p>
+        </div>
+        <div>
+          <p className="text-gray-500 text-xs font-medium uppercase tracking-wider mb-1">Users</p>
+          <p className="text-white font-mono font-semibold flex items-center gap-2">
+              <Users size={16} className="text-gray-600" />
+              {shard.users.toLocaleString()}
+          </p>
+        </div>
+      </div>
+  </SpotlightCard>
 );
 
 const Status: React.FC = () => {
@@ -93,7 +87,6 @@ const Status: React.FC = () => {
       <div className="w-full max-w-4xl mb-12 flex flex-col md:flex-row justify-between items-end gap-4">
         <h1 className="text-3xl font-bold text-white tracking-tight">System Status</h1>
         <div className="w-full md:w-64">
-             {/* Search Simulation for specific Shard or Server ID */}
              <input 
                 type="text" 
                 placeholder="Server ID" 
@@ -108,8 +101,7 @@ const Status: React.FC = () => {
         ))}
       </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-8 text-center w-full max-w-lg p-10 bg-dark-700/80 rounded-[3rem] border border-white/5 relative overflow-hidden">
-             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        <SpotlightCard className="mt-12 grid grid-cols-2 gap-8 text-center w-full max-w-lg p-10 rounded-[3rem]">
             <div>
                 <p className="text-gray-500 text-sm mb-2 font-medium uppercase tracking-wider">Total Users</p>
                 <p className="text-4xl font-black text-white tracking-tight">{totalUsers.toLocaleString()}</p>
@@ -118,7 +110,7 @@ const Status: React.FC = () => {
                 <p className="text-gray-500 text-sm mb-2 font-medium uppercase tracking-wider">Total Servers</p>
                 <p className="text-4xl font-black text-white tracking-tight">{totalServers.toLocaleString()}</p>
             </div>
-        </div>
+        </SpotlightCard>
 
     </div>
   );

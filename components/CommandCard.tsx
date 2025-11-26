@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Command } from '../types';
 import { Copy, ChevronDown, Shield, Terminal, Check } from 'lucide-react';
@@ -19,88 +20,104 @@ const CommandCard: React.FC<Props> = ({ command }) => {
 
   return (
     <div 
-        className={`group border-b border-white/5 last:border-0 transition-colors duration-200 ${
-            isOpen ? 'bg-white/[0.02]' : 'hover:bg-white/[0.01]'
+        className={`group border-b border-white/5 last:border-0 transition-all duration-300 ${
+            isOpen ? 'bg-white/[0.03]' : 'hover:bg-white/[0.02]'
         }`}
     >
       <div 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-4 p-5 cursor-pointer select-none"
+        className="flex items-center gap-4 p-5 md:p-6 cursor-pointer select-none relative"
       >
+        {/* Active Indicator Line */}
+        <div className={`absolute left-0 top-0 bottom-0 w-1 bg-white transition-transform duration-300 ${isOpen ? 'scale-y-100' : 'scale-y-0'}`}></div>
+
         {/* Icon */}
-        <div className={`hidden sm:flex flex-shrink-0 items-center justify-center w-10 h-10 rounded-lg transition-colors duration-300 ${
-            isOpen ? 'bg-white text-black shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]' : 'bg-white/5 text-gray-500 group-hover:text-gray-300 group-hover:bg-white/10'
+        <div className={`hidden md:flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-2xl transition-all duration-300 ${
+            isOpen ? 'bg-white text-black shadow-lg shadow-white/10' : 'bg-white/5 text-gray-500 border border-white/5 group-hover:border-white/10'
         }`}>
-            <Terminal size={18} strokeWidth={2} />
+            <Terminal size={20} strokeWidth={2} />
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-            {/* Command Name */}
-            <div className="md:col-span-4 flex items-center gap-3">
-                <span className="font-mono font-bold text-white text-base md:text-lg tracking-tight truncate">
+        {/* Main Content - Stacked Layout */}
+        <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
+            {/* Command Name & Badge */}
+            <div className="flex items-center gap-3">
+                <span className="font-mono font-bold text-white text-lg tracking-tight truncate">
                     /{command.name}
                 </span>
                 {/* Mobile Category Badge */}
-                <span className="md:hidden text-[10px] font-bold text-gray-500 bg-white/5 px-2 py-0.5 rounded uppercase">
+                <span className="md:hidden text-[10px] font-bold text-gray-500 bg-white/5 px-2 py-0.5 rounded uppercase border border-white/5">
                     {command.category}
                 </span>
             </div>
 
-            {/* Description */}
-            <div className="hidden md:block md:col-span-8 text-sm text-gray-400 truncate pr-4">
+            {/* Description - Always Below */}
+            <div className="text-sm text-gray-400 truncate font-medium">
                 {command.description}
             </div>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
+        <div className="flex items-center gap-3 flex-shrink-0 pl-2">
              <button 
                 onClick={copyToClipboard}
-                className={`hidden sm:flex items-center justify-center w-8 h-8 rounded-lg transition-all ${
-                    copied ? 'text-white bg-white/10' : 'text-gray-500 hover:text-white hover:bg-white/10'
+                className={`hidden md:flex items-center justify-center w-9 h-9 rounded-full transition-all ${
+                    copied ? 'text-white bg-green-500/20 border border-green-500/50' : 'text-gray-500 hover:text-white hover:bg-white/10'
                 }`}
                 title="Copy command"
             >
                 {copied ? <Check size={16} /> : <Copy size={16} />}
             </button>
             
-            <div className={`p-1 rounded-full transition-all duration-300 ${isOpen ? 'rotate-180 bg-white/10 text-white' : 'text-gray-600'}`}>
-                <ChevronDown size={20} />
+            <div className={`w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 ${isOpen ? 'rotate-180 bg-white text-black' : 'text-gray-600 group-hover:text-white'}`}>
+                <ChevronDown size={18} />
             </div>
         </div>
       </div>
 
       {/* Expanded Details */}
       <div 
-        className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+        className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
         }`}
       >
         <div className="overflow-hidden">
-            <div className="px-5 pb-5 sm:pl-[4.5rem] sm:pr-5 pt-0">
-                 {/* Mobile Description visible only when expanded on mobile */}
-                 <div className="md:hidden mb-4 pt-2 pb-4 border-b border-white/5">
-                    <p className="text-gray-300 text-sm leading-relaxed">{command.description}</p>
-                 </div>
-
-                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="px-5 pb-6 md:pl-[5.5rem] md:pr-6 pt-0">
+                 
+                 {/* Info Boxes */}
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Syntax Box */}
-                    <div className="bg-black/20 border border-white/5 rounded-xl p-4 flex flex-col gap-2">
-                        <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Usage Syntax</span>
-                        <code className="text-gray-300 font-mono text-sm break-all">
-                            {command.syntax}
-                        </code>
+                    <div className="bg-black/30 border border-white/10 rounded-2xl p-5 flex flex-col gap-2 shadow-inner">
+                        <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2">
+                            <Terminal size={12} /> Usage Syntax
+                        </span>
+                        <div className="flex items-center justify-between gap-4">
+                            <code className="text-white font-mono text-sm break-all">
+                                {command.syntax}
+                            </code>
+                            <button 
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    navigator.clipboard.writeText(command.syntax);
+                                    setCopied(true);
+                                    setTimeout(() => setCopied(false), 2000);
+                                }}
+                                className="text-gray-600 hover:text-white transition-colors"
+                            >
+                                {copied ? <Check size={14}/> : <Copy size={14}/>}
+                            </button>
+                        </div>
                     </div>
 
                     {/* Permissions Box */}
-                    <div className="bg-black/20 border border-white/5 rounded-xl p-4 flex flex-col gap-2">
-                        <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Required Permissions</span>
+                    <div className="bg-black/30 border border-white/10 rounded-2xl p-5 flex flex-col gap-3 shadow-inner">
+                        <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-2">
+                            <Shield size={12} /> Required Permissions
+                        </span>
                         <div className="flex flex-wrap gap-2">
                             {command.permissions && command.permissions.length > 0 ? (
                                 command.permissions.map((perm, idx) => (
-                                    <span key={idx} className="inline-flex items-center gap-1.5 bg-white/5 border border-white/5 text-gray-300 text-xs px-2.5 py-1 rounded-md font-medium">
-                                        <Shield size={10} className="text-white" />
+                                    <span key={idx} className="inline-flex items-center gap-1.5 bg-white/10 border border-white/5 text-white text-xs px-3 py-1.5 rounded-lg font-medium">
                                         {perm}
                                     </span>
                                 ))
