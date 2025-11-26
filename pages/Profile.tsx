@@ -95,11 +95,10 @@ const Bio: React.FC = () => {
     };
     
     const timer = setTimeout(attemptPlay, 100);
-    return () => clearTimeout(timer);
 
     // Update progress from actual audio time
     const updateProgress = () => {
-      if (audio.duration) {
+      if (audio && audio.duration) {
         const percent = (audio.currentTime / audio.duration) * 100;
         setProgress(percent);
         const mins = Math.floor(audio.currentTime / 60);
@@ -108,16 +107,23 @@ const Bio: React.FC = () => {
       }
     };
 
-    audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('ended', () => {
-      setProgress(0);
-      setCurrentTime('0:00');
-      audio.currentTime = 0;
-      audio.play();
-    });
+    if (audio) {
+      audio.addEventListener('timeupdate', updateProgress);
+      audio.addEventListener('ended', () => {
+        setProgress(0);
+        setCurrentTime('0:00');
+        if (audio) {
+          audio.currentTime = 0;
+          audio.play();
+        }
+      });
+    }
 
     return () => {
-      audio.removeEventListener('timeupdate', updateProgress);
+      clearTimeout(timer);
+      if (audio) {
+        audio.removeEventListener('timeupdate', updateProgress);
+      }
     };
   }, []);
 
