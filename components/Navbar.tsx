@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Using the specific image URL provided by the user
-  const [pfpUrl] = useState('https://cdn.discordapp.com/embed/avatars/0.png');
+  const [pfpUrl] = useState('/media/avatar/avatar.jpeg');
 
   useEffect(() => {
     const handleScroll = () => {

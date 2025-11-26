@@ -15,7 +15,7 @@ const DiscordIcon = ({ className = "" }: { className?: string }) => (
   </svg>
 );
 
-const Bio: React.FC = () => {
+const Koi: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState("0:00");
@@ -34,9 +34,9 @@ const Bio: React.FC = () => {
     return uniqueNames.size;
   }, []);
 
-  // Song Duration for "Sign of the Times" approx 5:41
-  const duration = 341; 
-  const durationStr = "5:41";
+  // Song Duration for "Here With Me" approx 3:59
+  const duration = 239; 
+  const durationStr = "3:59";
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY });
@@ -148,7 +148,7 @@ const Bio: React.FC = () => {
         {/* Hidden Audio Element */}
         <audio 
             ref={audioRef}
-            src="/media/music/Harry_Styles_-_Signs_Of_Times_3_(mp3.pm).mp3"
+            src="/media/music/here-with-me.mp3"
             loop
             preload="auto"
         />
@@ -171,8 +171,8 @@ const Bio: React.FC = () => {
             <div className="relative mb-6 z-10">
                 <div className="w-32 h-32 rounded-full overflow-hidden ring-1 ring-white/20 shadow-2xl bg-dark-700">
                     <img 
-                        src="/media/avatar/avatar.jpeg"
-                        alt="rey" 
+                        src="/media/avatar/koi.webp"
+                        alt="koi" 
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
                     />
                 </div>
@@ -180,31 +180,35 @@ const Bio: React.FC = () => {
             
             {/* Name */}
             <h1 className="relative z-10 text-4xl font-black text-white mb-2 tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                rey
+                koi
             </h1>
             
             {/* Custom Status */}
             <div className="relative z-10 mb-8">
-                 <p className="text-gray-500 text-sm font-light italic tracking-wide">I like to code sometimes</p>
+                 <p className="text-gray-500 text-sm font-light italic tracking-wide">I see you peekin</p>
             </div>
 
             {/* Action Buttons */}
             <div className="relative z-10 flex gap-3 justify-center w-full px-2 mb-2">
                 <a 
-                    href="https://discord.com/users/1442334476909809785" 
+                    href="https://www.instagram.com/kccaylie/" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 flex items-center justify-center gap-2 p-3.5 bg-white/[0.05] hover:bg-white/[0.1] text-white rounded-2xl transition-all duration-300 group border border-white/5 hover:border-white/20 hover:shadow-lg hover:shadow-white/5"
                 >
-                    <DiscordIcon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+                    <svg className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
                 </a>
                  <a 
-                    href="https://adore.rest/invite" 
+                    href="https://www.roblox.com/users/7445876933/profile" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 flex items-center justify-center gap-2 p-3.5 bg-white/[0.05] hover:bg-white/[0.1] text-white rounded-2xl transition-all duration-300 group border border-white/5 hover:border-white/20 hover:shadow-lg hover:shadow-white/5"
                 >
-                    <Heart size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                    <svg className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.926 23.998L0.002 18.521 5.075 0.002 24 5.48z"/>
+                    </svg>
                 </a>
             </div>
 
@@ -220,7 +224,7 @@ const Bio: React.FC = () => {
                 {/* Album Art - Clean Square */}
                 <div className="w-14 h-14 rounded-xl bg-gray-900 overflow-hidden relative flex-shrink-0 shadow-lg border border-white/10">
                     <img 
-                        src="https://i.scdn.co/image/ab67616d0000b273ed317ec13d3de9e01fb99c9e" 
+                        src="https://i.scdn.co/image/ab67616d0000b273c8b444df094279e70d0ed856" 
                         alt="Album" 
                         className="w-full h-full object-cover"
                     />
@@ -229,9 +233,9 @@ const Bio: React.FC = () => {
                 {/* Song Info - Static Text */}
                 <div className="flex-1 min-w-0 text-left flex flex-col justify-center gap-1">
                     <h3 className="text-white font-bold text-sm leading-tight truncate">
-                        Sign of the Times
+                        Here With Me
                     </h3>
-                    <p className="text-gray-500 text-xs truncate">Harry Styles</p>
+                    <p className="text-gray-500 text-xs truncate">d4vd</p>
                 </div>
             </div>
 
@@ -271,4 +275,4 @@ const Bio: React.FC = () => {
   );
 };
 
-export default Bio;
+export default Koi;
