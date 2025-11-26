@@ -33,9 +33,9 @@ const Bio: React.FC = () => {
     return uniqueNames.size;
   }, []);
 
-  // Song Duration for "Young Dumb & Broke" approx 3:22
-  const duration = 202; 
-  const durationStr = "3:22";
+  // Song Duration for "Sign of the Times" approx 5:41
+  const duration = 341; 
+  const durationStr = "5:41";
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY });
@@ -105,7 +105,7 @@ const Bio: React.FC = () => {
         {/* Hidden Audio Element */}
         <audio 
             ref={audioRef}
-            src="/media/music/young-dumb-broke.mp3"
+            src="/media/music/Harry_Styles_-_Signs_Of_Times_3_(mp3.pm).mp3"
             loop
             preload="auto"
         />
@@ -187,7 +187,7 @@ const Bio: React.FC = () => {
                 {/* Album Art - Clean Square */}
                 <div className="w-14 h-14 rounded-xl bg-gray-900 overflow-hidden relative flex-shrink-0 shadow-lg border border-white/10">
                     <img 
-                        src="https://i.scdn.co/image/ab67616d0000b2738ff8e37dc9a2e6fb0526012c" 
+                        src="https://i.scdn.co/image/ab67616d0000b273f7db43292a6a99b21b51d5b4" 
                         alt="Album" 
                         className="w-full h-full object-cover"
                     />
@@ -196,9 +196,9 @@ const Bio: React.FC = () => {
                 {/* Song Info - Static Text */}
                 <div className="flex-1 min-w-0 text-left flex flex-col justify-center gap-1">
                     <h3 className="text-white font-bold text-sm leading-tight truncate">
-                        Young Dumb & Broke
+                        Sign of the Times
                     </h3>
-                    <p className="text-gray-500 text-xs truncate">Khalid</p>
+                    <p className="text-gray-500 text-xs truncate">Harry Styles</p>
                 </div>
             </div>
 
