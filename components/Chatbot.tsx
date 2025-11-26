@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Sparkles, Bot, Loader2 } from 'lucide-react';
-import { GoogleGenAI, Chat } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 interface Message {
   role: 'user' | 'model';
@@ -15,7 +15,7 @@ const Chatbot: React.FC = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const chatSessionRef = useRef<Chat | null>(null);
+  const chatSessionRef = useRef<any>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -27,12 +27,13 @@ const Chatbot: React.FC = () => {
 
   const getChatSession = () => {
     if (!chatSessionRef.current) {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      chatSessionRef.current = ai.chats.create({
-        model: 'gemini-3-pro-preview',
-        config: {
-          systemInstruction: "You are ADORE AI, a helpful and intelligent support assistant for the ADORE Discord bot. Your goal is to help users with features like Anti-Nuke, Moderation, Leveling, Welcome messages, and more. You are friendly, concise, and knowledgeable about Discord server management. If asked about pricing, mention the Premium subscription. If asked about bugs, direct them to the Support Server.",
-        },
+      const genAI = new GoogleGenerativeAI(process.env.API_KEY || '');
+      const model = genAI.getGenerativeModel({ 
+        model: "gemini-pro",
+        systemInstruction: "You are ADORE AI, a helpful and intelligent support assistant for the ADORE Discord bot. Your goal is to help users with features like Anti-Nuke, Moderation, Leveling, Welcome messages, and more. You are friendly, concise, and knowledgeable about Discord server management. If asked about pricing, mention the Premium subscription. If asked about bugs, direct them to the Support Server.",
+      });
+      chatSessionRef.current = model.startChat({
+        history: [],
       });
     }
     return chatSessionRef.current;
@@ -48,11 +49,12 @@ const Chatbot: React.FC = () => {
 
     try {
       const chat = getChatSession();
-      const response = await chat.sendMessage({ message: userMessage });
+      const result = await chat.sendMessage(userMessage);
+      const response = await result.response;
       
       setMessages(prev => [...prev, { 
         role: 'model', 
-        text: response.text || "I'm having trouble thinking right now." 
+        text: response.text() || "I'm having trouble thinking right now." 
       }]);
     } catch (error) {
       console.error("Chat Error:", error);

@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, Outlet, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
@@ -12,14 +12,40 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Authorized from './pages/Authorized';
 import SpotifyCallback from './pages/SpotifyCallback';
-import Bio from './pages/Bio';
+import Profile from './pages/Profile';
 import { SpotlightProvider } from './components/SpotlightCard';
 
-// Wrapper to reset scroll on route change
+// Redirect components
+const InviteRedirect = () => {
+  React.useEffect(() => {
+    window.location.href = 'https://discord.com/oauth2/authorize?client_id=1439529198325596172';
+  }, []);
+  return null;
+};
+
+const ServerRedirect = () => {
+  React.useEffect(() => {
+    window.location.href = 'https://discord.gg/dyjn7wzdyH';
+  }, []);
+  return null;
+};
+
+// Wrapper to reset scroll and update title
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   React.useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Update page title based on route
+    const titles: { [key: string]: string } = {
+      '/': 'adore',
+      '/commands': 'adore | commands',
+      '/faq': 'adore | information',
+      '/terms': 'adore | terms',
+      '/privacy': 'adore | privacy',
+      '/me': 'adore | me',
+    };
+    document.title = titles[pathname] || 'adore';
   }, [pathname]);
   return null;
 };
@@ -62,10 +88,13 @@ const App: React.FC = () => {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/authorized" element={<Authorized />} />
             <Route path="/spotify-callback" element={<SpotifyCallback />} />
+            <Route path="/invite" element={<InviteRedirect />} />
+            <Route path="/server" element={<ServerRedirect />} />
+            <Route path="/help" element={<Navigate to="/commands" replace />} />
         </Route>
 
-        {/* Standalone Bio Page - No Layout */}
-        <Route path="/bio" element={<Bio />} />
+        {/* Standalone Profile Page - No Layout */}
+        <Route path="/me" element={<Profile />} />
       </Routes>
     </Router>
   );

@@ -13,10 +13,6 @@ const Footer: React.FC = () => {
           <NavLink to="/privacy" className="hover:text-white transition-colors">
             Privacy Policy
           </NavLink>
-          <span className="w-px h-4 bg-dark-600"></span>
-          <NavLink to="/bio" className="hover:text-white transition-colors">
-            Bio
-          </NavLink>
         </div>
         <div className="text-sm text-gray-500">
           All rights reserved ©2025
