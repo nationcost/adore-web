@@ -177,7 +177,7 @@ const Apoorva: React.FC = () => {
             <div className="relative mb-6 z-10">
                 <div className="w-32 h-32 rounded-full overflow-hidden ring-1 ring-white/20 shadow-2xl bg-dark-700">
                     <img 
-                        src="/media/avatar/apoorva.jpeg"
+                        src="/media/avatar/apoorva.webp"
                         alt="apoorva" 
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
                     />
