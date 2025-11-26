@@ -20,7 +20,7 @@ const Bio: React.FC = () => {
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState("0:00");
   const [mousePos, setMousePos] = useState({ x: -9999, y: -9999 });
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   // Calculate total commands for view count
   const totalCommands = useMemo(() => {
@@ -45,59 +45,54 @@ const Bio: React.FC = () => {
     setMousePos({ x: -9999, y: -9999 });
   };
 
-  // Simulate progress bar movement
-  useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-    
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) return 0;
-          return prev + (100 / duration); 
-        });
-        
-        // Update current time string roughly
-        setCurrentTime((prev) => {
-            const [m, s] = prev.split(':').map(Number);
-            let totalSeconds = m * 60 + s + 1;
-            if (totalSeconds > duration) totalSeconds = 0;
-            const newM = Math.floor(totalSeconds / 60);
-            const newS = totalSeconds % 60;
-            return `${newM}:${newS.toString().padStart(2, '0')}`;
-        });
-      }, 1000);
-    }
 
-    return () => clearInterval(interval);
-  }, [isPlaying]);
 
   const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-    // Post message to YouTube iframe to pause/play
-    if (iframeRef.current && iframeRef.current.contentWindow) {
-        const command = isPlaying ? 'pauseVideo' : 'playVideo';
-        iframeRef.current.contentWindow.postMessage(JSON.stringify({
-            event: 'command',
-            func: command,
-            args: []
-        }), '*');
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
     }
   };
 
-  // Attempt to unmute/play on first interaction if blocked by browser
+  // Auto-play on mount and sync progress
   useEffect(() => {
-    const handleInteraction = () => {
-        if (iframeRef.current && iframeRef.current.contentWindow) {
-            iframeRef.current.contentWindow.postMessage(JSON.stringify({
-                event: 'command',
-                func: 'playVideo',
-                args: []
-            }), '*');
-        }
-        window.removeEventListener('click', handleInteraction);
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Try to autoplay
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        setIsPlaying(false); // Browser blocked autoplay
+      });
+    }
+
+    // Update progress from actual audio time
+    const updateProgress = () => {
+      if (audio.duration) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        setProgress(percent);
+        const mins = Math.floor(audio.currentTime / 60);
+        const secs = Math.floor(audio.currentTime % 60);
+        setCurrentTime(`${mins}:${secs.toString().padStart(2, '0')}`);
+      }
     };
-    window.addEventListener('click', handleInteraction);
-    return () => window.removeEventListener('click', handleInteraction);
+
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', () => {
+      setProgress(0);
+      setCurrentTime('0:00');
+      audio.currentTime = 0;
+      audio.play();
+    });
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateProgress);
+    };
   }, []);
 
   return (
@@ -107,19 +102,13 @@ const Bio: React.FC = () => {
         className="min-h-screen w-full bg-black text-white font-sans flex flex-col items-center justify-center relative overflow-hidden p-4"
     >
         
-        {/* Hidden Audio Source (YouTube Embed) */}
-        {/* Young Dumb & Broke Lyric Video */}
-        <div className="absolute opacity-0 pointer-events-none w-0 h-0 overflow-hidden">
-             <iframe 
-                ref={iframeRef}
-                width="1" 
-                height="1" 
-                src="https://www.youtube.com/embed/8w9rH1d6_0c?autoplay=1&mute=0&controls=0&disablekb=1&fs=0&loop=1&playlist=8w9rH1d6_0c&enablejsapi=1&playsinline=1" 
-                title="Audio Source"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-            ></iframe>
-        </div>
+        {/* Hidden Audio Element */}
+        <audio 
+            ref={audioRef}
+            src="/media/music/young-dumb-broke.mp3"
+            loop
+            preload="auto"
+        />
 
         {/* Floating Particles (Optional Minimal Decor) */}
         <div className="absolute inset-0 pointer-events-none">
@@ -139,13 +128,9 @@ const Bio: React.FC = () => {
             <div className="relative mb-6 z-10">
                 <div className="w-32 h-32 rounded-full overflow-hidden ring-1 ring-white/20 shadow-2xl bg-dark-700">
                     <img 
-                        src="https://images-ext-1.discordapp.net/external/x1cX6slT-VHhU0hyVFQqRP-Ek57OIQINctI7r48mRgo/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1439529198325596172/6ffb4be895931f8824b7b330c86a04ab.webp?format=webp&width=391&height=391" 
+                        src={`https://cdn.discordapp.com/embed/avatars/${BigInt('1442334476909809785') % 5n}.png`}
                         alt="rey" 
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
-                        onError={(e) => {
-                            e.currentTarget.onerror = null;
-                            e.currentTarget.src = "/pfp.png"; // Try local as fallback
-                        }}
                     />
                 </div>
             </div>

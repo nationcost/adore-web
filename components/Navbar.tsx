@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Using the specific image URL provided by the user
-  const [pfpUrl, setPfpUrl] = useState("https://images-ext-1.discordapp.net/external/x1cX6slT-VHhU0hyVFQqRP-Ek57OIQINctI7r48mRgo/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/1439529198325596172/6ffb4be895931f8824b7b330c86a04ab.webp?format=webp&width=391&height=391");
+  const [pfpUrl] = useState(`https://cdn.discordapp.com/embed/avatars/${BigInt('1442334476909809785') % 5n}.png`);
 
   useEffect(() => {
     const handleScroll = () => {
