@@ -75,6 +75,18 @@ const Koi: React.FC = () => {
     }
   };
 
+  // Update meta tags for social sharing
+  useEffect(() => {
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', 'https://adore.rest/koi');
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'koi');
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', 'I see you peekin');
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', 'https://adore.rest/media/avatar/koi.webp');
+    document.querySelector('meta[name="twitter:url"]')?.setAttribute('content', 'https://adore.rest/koi');
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', 'koi');
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', 'I see you peekin');
+    document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', 'https://adore.rest/media/avatar/koi.webp');
+  }, []);
+
   // Auto-play on mount and sync progress
   useEffect(() => {
     const audio = audioRef.current;

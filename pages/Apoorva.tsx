@@ -75,6 +75,18 @@ const Apoorva: React.FC = () => {
     }
   };
 
+  // Update meta tags for social sharing
+  useEffect(() => {
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', 'https://adore.rest/apoorva');
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'apoorva');
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', 'yapper fr');
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', 'https://adore.rest/media/avatar/apoorva.webp');
+    document.querySelector('meta[name="twitter:url"]')?.setAttribute('content', 'https://adore.rest/apoorva');
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', 'apoorva');
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', 'yapper fr');
+    document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', 'https://adore.rest/media/avatar/apoorva.webp');
+  }, []);
+
   // Auto-play on mount and sync progress
   useEffect(() => {
     const audio = audioRef.current;
