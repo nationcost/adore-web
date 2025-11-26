@@ -14,6 +14,7 @@ import Authorized from './pages/Authorized';
 import SpotifyCallback from './pages/SpotifyCallback';
 import Profile from './pages/Profile';
 import Koi from './pages/Koi';
+import Apoorva from './pages/Apoorva';
 import NotFound from './pages/NotFound';
 import { SpotlightProvider } from './components/SpotlightCard';
 
@@ -47,6 +48,7 @@ const ScrollToTop = () => {
       '/privacy': 'adore | privacy',
       '/me': 'adore | me',
       '/koi': 'adore | koi',
+      '/apoorva': 'adore | apoorva',
     };
     document.title = titles[pathname] || 'adore';
   }, [pathname]);
@@ -100,6 +102,7 @@ const App: React.FC = () => {
         {/* Standalone Profile Pages - No Layout */}
         <Route path="/me" element={<Profile />} />
         <Route path="/koi" element={<Koi />} />
+        <Route path="/apoorva" element={<Apoorva />} />
       </Routes>
     </Router>
   );

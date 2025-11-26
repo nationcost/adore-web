@@ -154,7 +154,7 @@ const Bio: React.FC = () => {
         {/* Hidden Audio Element */}
         <audio 
             ref={audioRef}
-            src="/media/music/Harry_Styles_-_Signs_Of_Times_3_(mp3.pm).mp3"
+            src="/media/music/SignsOfTimes.mp3"
             loop
             preload="auto"
         />
@@ -205,16 +205,21 @@ const Bio: React.FC = () => {
                     <DiscordIcon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
                 </a>
                  <a 
-                    href="https://adore.rest/invite" 
+                    href="https://adore.rest" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 flex items-center justify-center gap-2 p-3.5 bg-white/[0.05] hover:bg-white/[0.1] text-white rounded-2xl transition-all duration-300 group border border-white/5 hover:border-white/20 hover:shadow-lg hover:shadow-white/5"
                 >
-                    <Heart size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                    <svg className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
                 </a>
             </div>
 
         </SpotlightCard>
+
+        {/* Spacer */}
+        <div className="h-4"></div>
 
         {/* Custom Music Player UI - With Proximity Spotlight Effect */}
         <SpotlightCard 
@@ -226,9 +231,12 @@ const Bio: React.FC = () => {
                 {/* Album Art - Clean Square */}
                 <div className="w-14 h-14 rounded-xl bg-gray-900 overflow-hidden relative flex-shrink-0 shadow-lg border border-white/10">
                     <img 
-                        src="https://i.scdn.co/image/ab67616d0000b273ed317ec13d3de9e01fb99c9e" 
+                        src="/media/covers/signoftimes.jpg" 
                         alt="Album" 
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                            e.currentTarget.src = 'https://i.scdn.co/image/ab67616d0000b273ed317ec13d3de9e01fb99c9e';
+                        }}
                     />
                 </div>
 

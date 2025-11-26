@@ -154,7 +154,7 @@ const Koi: React.FC = () => {
         {/* Hidden Audio Element */}
         <audio 
             ref={audioRef}
-            src="/media/music/here-with-me.mp3"
+            src="/media/music/herewithme.mp3"
             loop
             preload="auto"
         />
@@ -220,6 +220,9 @@ const Koi: React.FC = () => {
 
         </SpotlightCard>
 
+        {/* Spacer */}
+        <div className="h-4"></div>
+
         {/* Custom Music Player UI - With Proximity Spotlight Effect */}
         <SpotlightCard 
             mouseX={mousePos.x} 
@@ -230,9 +233,12 @@ const Koi: React.FC = () => {
                 {/* Album Art - Clean Square */}
                 <div className="w-14 h-14 rounded-xl bg-gray-900 overflow-hidden relative flex-shrink-0 shadow-lg border border-white/10">
                     <img 
-                        src="https://i.scdn.co/image/ab67616d0000b273c8b444df094279e70d0ed856" 
+                        src="/media/covers/herewithme.jpg" 
                         alt="Album" 
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                            e.currentTarget.src = 'https://i.scdn.co/image/ab67616d0000b273c8b444df094279e70d0ed856';
+                        }}
                     />
                 </div>
 
