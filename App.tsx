@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Outlet, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Chatbot from './components/Chatbot';
+
 import Background from './components/Background';
 import Home from './pages/Home';
 import Commands from './pages/Commands';
@@ -67,7 +67,6 @@ const MainLayout: React.FC = () => {
             <Outlet />
           </main>
 
-          <Chatbot />
           <Footer />
       </div>
     </SpotlightProvider>

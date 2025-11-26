@@ -63,13 +63,21 @@ const Bio: React.FC = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // Try to autoplay
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        setIsPlaying(false); // Browser blocked autoplay
+    // Force autoplay with user interaction fallback
+    const attemptPlay = () => {
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch(() => {
+        setIsPlaying(false);
+        // Try again on first click
+        document.addEventListener('click', () => {
+          audio.play();
+          setIsPlaying(true);
+        }, { once: true });
       });
-    }
+    };
+    
+    attemptPlay();
 
     // Update progress from actual audio time
     const updateProgress = () => {
@@ -128,7 +136,7 @@ const Bio: React.FC = () => {
             <div className="relative mb-6 z-10">
                 <div className="w-32 h-32 rounded-full overflow-hidden ring-1 ring-white/20 shadow-2xl bg-dark-700">
                     <img 
-                        src={`https://cdn.discordapp.com/embed/avatars/${BigInt('1442334476909809785') % 5n}.png`}
+                        src="https://cdn.discordapp.com/embed/avatars/0.png"
                         alt="rey" 
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
                     />
