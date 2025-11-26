@@ -91,6 +91,7 @@ const App: React.FC = () => {
             <Route path="/invite" element={<InviteRedirect />} />
             <Route path="/server" element={<ServerRedirect />} />
             <Route path="/help" element={<Navigate to="/commands" replace />} />
+            <Route path="/callback" element={<SpotifyCallback />} />
             <Route path="*" element={<NotFound />} />
         </Route>
 
