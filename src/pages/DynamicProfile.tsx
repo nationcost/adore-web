@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Eye, Disc, Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import SpotlightCard from '../components/SpotlightCard';
 
-const API_URL = 'https://adore-api.vwsnx.workers.dev';
+const API_URL = 'https://api.adore.rest';
 
 // Social Media Icons
 const DiscordIcon = ({ className = "" }: { className?: string }) => (
