@@ -1135,3 +1135,100 @@ const commands = [
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
 ```
+
+
+---
+
+## 🎭 Dynamic Meta Tags for Social Media
+
+### Problem
+When sharing profile links on Discord, Twitter, etc., they show default site meta tags instead of user-specific info.
+
+### Solution
+The main site (`adore.rest`) uses a Cloudflare Worker that:
+1. Detects social media crawlers (Discord, Twitter, Facebook, etc.)
+2. Fetches profile data from the API
+3. Serves dynamic HTML with proper Open Graph meta tags
+4. Redirects regular users to the React app
+
+### How It Works
+- **Profile URL**: `https://adore.rest/123456789` (Discord ID)
+- **For Crawlers**: Serves HTML with meta tags showing user's name, bio, avatar/banner
+- **For Users**: Redirects to React SPA with full profile experience
+
+### Deployment
+```bash
+# Build and deploy the site with meta tag worker
+./deploy-site.sh
+```
+
+### Configuration
+The worker is configured in `wrangler.toml` and uses `_worker.js` to handle requests.
+
+---
+
+## 🤖 Discord Bot Commands
+
+### Profile Management
+
+**Create Profile**
+```
+!about create
+```
+Creates a profile using your Discord ID as the identifier. Username defaults to your Discord username.
+
+**Set Username**
+```
+!about username [name]
+```
+Set your custom username (alphanumeric + underscore, 3-20 chars).
+
+**Set Display Name**
+```
+!about name [name]
+```
+Set your display name (can include spaces, up to 32 chars).
+
+**Set Bio**
+```
+!about bio [text]
+```
+Set your profile bio (max 200 characters).
+
+**Set Avatar**
+```
+!about avatar [attachment/@user]
+```
+Upload custom avatar or copy from mentioned user.
+
+**Set Banner**
+```
+!about banner [attachment/@user]
+```
+Upload custom banner or copy from mentioned user.
+
+**Set Favorite Song**
+```
+!about music [spotify link or song name]
+```
+Add your favorite song with Spotify integration.
+
+**Add Social Link**
+```
+!about social [url] [--platform]
+```
+Add social media links (auto-detects platform or use `--platform` flag).
+
+**View Profile**
+```
+!about view [@user]
+```
+View your or another user's profile.
+
+**Delete Profile**
+```
+!about delete
+```
+Permanently delete your profile (requires confirmation).
+
+---

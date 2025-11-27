@@ -302,20 +302,25 @@ const DynamicProfile: React.FC = () => {
         )}
 
         {/* Avatar */}
-        <div className={`relative z-10 ${profile.banner ? 'mt-20' : 'mt-8'}`}>
+        <div className={`relative z-10 flex justify-center ${profile.banner ? 'mt-20' : 'mt-8'}`}>
           <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-black/50 shadow-2xl bg-dark-700">
             <img 
               src={profile.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}
               alt={profile.displayName} 
-              className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+              className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105" 
             />
           </div>
         </div>
         
         {/* Name */}
-        <h1 className="relative z-10 text-4xl font-black text-white mb-2 mt-6 tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent px-8">
+        <h1 className="relative z-10 text-4xl font-black text-white mb-1 mt-6 tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent px-8">
           {profile.displayName}
         </h1>
+        
+        {/* Username */}
+        <p className="relative z-10 text-gray-500 text-sm font-medium mb-6 px-8">
+          @{profile.username}
+        </p>
         
         {/* Bio */}
         <div className="relative z-10 mb-8 px-8">

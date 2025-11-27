@@ -1,0 +1,11 @@
+name = "adore-site"
+main = "_worker.js"
+compatibility_date = "2024-11-27"
+
+# This worker serves your static site with dynamic meta tags
+[site]
+bucket = "./dist"
+
+# Environment variables
+[vars]
+API_URL = "https://adore-api.vwsnxy.workers.dev"
