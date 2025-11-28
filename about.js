@@ -23,28 +23,27 @@ async function getProfile(discordId) {
       return cached.profile;
     }
 
-    // Get all profiles and find by Discord ID
-    const response = await axios.get(`${API_BASE_URL}/profiles`, {
+    // Fetch profile directly by Discord ID (fast!)
+    const response = await axios.get(`${API_BASE_URL}/profile/id/${discordId}`, {
       headers: {
         'X-API-Key': BOT_API_KEY
       }
     });
     
-    if (response.data && response.data.profiles) {
-      const profile = response.data.profiles.find(p => p.discordId === discordId);
-      
+    if (response.data) {
       // Cache the result
-      if (profile) {
-        profileCache.set(discordId, {
-          profile,
-          timestamp: Date.now()
-        });
-      }
+      profileCache.set(discordId, {
+        profile: response.data,
+        timestamp: Date.now()
+      });
       
-      return profile;
+      return response.data;
     }
     return null;
   } catch (error) {
+    if (error.response?.status === 404) {
+      return null;
+    }
     return null;
   }
 }
