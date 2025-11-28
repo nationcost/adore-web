@@ -418,9 +418,29 @@ module.exports = {
 
           if (match) {
             const videoId = match[1];
+            
+            // If no custom name, fetch video title from YouTube
+            let videoTitle = customName;
+            if (!customName) {
+              try {
+                const ytResponse = await axios.post(`${API_BASE_URL}/youtube/info`, 
+                  { videoId },
+                  {
+                    headers: {
+                      'X-API-Key': BOT_API_KEY,
+                      'Content-Type': 'application/json'
+                    }
+                  }
+                );
+                videoTitle = ytResponse.data.title;
+              } catch (error) {
+                videoTitle = 'YouTube Video';
+              }
+            }
+            
             videoData = {
               videoId: videoId,
-              title: customName || 'YouTube Video',
+              title: videoTitle,
               thumbnail: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
               url: `https://www.youtube.com/watch?v=${videoId}`
             };
