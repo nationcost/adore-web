@@ -73,30 +73,17 @@ async function getSpotifyToken() {
 }
 
 async function searchYouTube(query) {
-  const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY || 'AIzaSyDummy'; // You'll need to add this
-  
   try {
-    const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
-      params: {
-        part: 'snippet',
-        q: query,
-        type: 'video',
-        videoCategoryId: '10', // Music category
-        maxResults: 1,
-        key: YOUTUBE_API_KEY
+    const response = await axios.post(`${API_BASE_URL}/youtube/search`, 
+      { query },
+      {
+        headers: {
+          'X-API-Key': BOT_API_KEY,
+          'Content-Type': 'application/json'
+        }
       }
-    });
-
-    if (response.data.items && response.data.items.length > 0) {
-      const video = response.data.items[0];
-      return {
-        videoId: video.id.videoId,
-        title: video.snippet.title,
-        thumbnail: video.snippet.thumbnails.high.url,
-        url: `https://www.youtube.com/watch?v=${video.id.videoId}`
-      };
-    }
-    return null;
+    );
+    return response.data;
   } catch (error) {
     console.error('YouTube search error:', error);
     return null;
