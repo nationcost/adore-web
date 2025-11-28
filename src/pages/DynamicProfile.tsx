@@ -130,11 +130,10 @@ const DynamicProfile: React.FC = () => {
 
   const handleEnter = async () => {
     setShowOverlay(false);
-    const audio = audioRef.current;
-    if (audio && profile?.song) {
-      audio.volume = 0.7;
+    const player = (audioRef as any).current;
+    if (player && player.playVideo) {
       try {
-        await audio.play();
+        player.playVideo();
         setIsPlaying(true);
       } catch (err) {
         console.error('Play failed:', err);
@@ -144,11 +143,12 @@ const DynamicProfile: React.FC = () => {
   };
 
   const togglePlay = () => {
-    if (audioRef.current) {
+    const player = (audioRef as any).current;
+    if (player && player.playVideo && player.pauseVideo) {
       if (isPlaying) {
-        audioRef.current.pause();
+        player.pauseVideo();
       } else {
-        audioRef.current.play();
+        player.playVideo();
       }
       setIsPlaying(!isPlaying);
     }
@@ -177,52 +177,61 @@ const DynamicProfile: React.FC = () => {
       });
   }, [username]);
 
-  // Audio player logic
+  // YouTube Player logic
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio || !profile?.song) return;
+    if (!profile?.youtubeId) return;
 
-    audio.volume = 0.7;
-    const attemptPlay = async () => {
-      try {
-        await audio.play();
-        setIsPlaying(true);
-        setShowOverlay(false);
-      } catch (err) {
-        setShowOverlay(true);
-        setIsPlaying(false);
-      }
-    };
-    
-    const timer = setTimeout(attemptPlay, 100);
+    // Load YouTube IFrame API
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
-    const updateProgress = () => {
-      if (audio && audio.duration) {
-        const percent = (audio.currentTime / audio.duration) * 100;
-        setProgress(percent);
-        const mins = Math.floor(audio.currentTime / 60);
-        const secs = Math.floor(audio.currentTime % 60);
-        setCurrentTime(`${mins}:${secs.toString().padStart(2, '0')}`);
-      }
-    };
-
-    if (audio) {
-      audio.addEventListener('timeupdate', updateProgress);
-      audio.addEventListener('ended', () => {
-        setProgress(0);
-        setCurrentTime('0:00');
-        if (audio) {
-          audio.currentTime = 0;
-          audio.play();
+    // Create player when API is ready
+    (window as any).onYouTubeIframeAPIReady = () => {
+      const player = new (window as any).YT.Player('youtube-player', {
+        height: '0',
+        width: '0',
+        videoId: profile.youtubeId,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+        },
+        events: {
+          onReady: (event: any) => {
+            (audioRef as any).current = event.target;
+            event.target.setVolume(70);
+          },
+          onStateChange: (event: any) => {
+            if (event.data === (window as any).YT.PlayerState.PLAYING) {
+              setIsPlaying(true);
+              setShowOverlay(false);
+              
+              // Update progress
+              const updateProgress = () => {
+                const player = (audioRef as any).current;
+                if (player && player.getCurrentTime) {
+                  const currentTime = player.getCurrentTime();
+                  const duration = player.getDuration();
+                  const percent = (currentTime / duration) * 100;
+                  setProgress(percent);
+                  const mins = Math.floor(currentTime / 60);
+                  const secs = Math.floor(currentTime % 60);
+                  setCurrentTime(`${mins}:${secs.toString().padStart(2, '0')}`);
+                }
+              };
+              
+              const interval = setInterval(updateProgress, 1000);
+              return () => clearInterval(interval);
+            } else if (event.data === (window as any).YT.PlayerState.PAUSED) {
+              setIsPlaying(false);
+            } else if (event.data === (window as any).YT.PlayerState.ENDED) {
+              event.target.seekTo(0);
+              event.target.playVideo();
+            }
+          }
         }
       });
-    }
-
-    return () => {
-      clearTimeout(timer);
-      if (audio) {
-        audio.removeEventListener('timeupdate', updateProgress);
-      }
     };
   }, [profile]);
 
@@ -259,15 +268,9 @@ const DynamicProfile: React.FC = () => {
       className="min-h-screen w-full bg-black text-white font-sans flex flex-col items-center justify-center relative overflow-hidden p-4"
       style={{ cursor: 'crosshair' }}
     >
-      {/* YouTube Player (hidden, for audio only) */}
+      {/* Hidden YouTube Player for audio */}
       {profile.youtubeId && (
-        <div className="hidden">
-          <iframe
-            ref={audioRef as any}
-            src={`https://www.youtube.com/embed/${profile.youtubeId}?enablejsapi=1&autoplay=0`}
-            allow="autoplay"
-          />
-        </div>
+        <div id="youtube-player" className="hidden"></div>
       )}
 
       {/* Frosted Glass Overlay */}
@@ -409,7 +412,7 @@ const DynamicProfile: React.FC = () => {
             </button>
           </div>
 
-          {/* Spotify Link */}
+          {/* YouTube Link */}
           {profile.songUrl && (
             <div className="mt-4 pt-4 border-t border-white/5">
               <a 
@@ -418,8 +421,8 @@ const DynamicProfile: React.FC = () => {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 text-xs text-gray-500 hover:text-white transition-colors group"
               >
-                <SpotifyIcon className="w-4 h-4 group-hover:text-[#1DB954] transition-colors" />
-                <span>Open in Spotify</span>
+                <YouTubeIcon className="w-4 h-4 group-hover:text-[#FF0000] transition-colors" />
+                <span>Watch on YouTube</span>
               </a>
             </div>
           )}
