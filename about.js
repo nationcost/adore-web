@@ -368,14 +368,14 @@ module.exports = {
         case 'song': {
           const subcommandInfo = {
             description: 'Set your favorite song on your ADORE profile',
-            syntax: '{guildprefix}about music [youtube link or song name]',
+            syntax: '{guildprefix}about music [youtube link or song name] (--time 2:30) (--name Song Name)',
             aliases: ['song'],
-            parameters: ['youtube link or song name'],
-            example: '{guildprefix}about music Bohemian Rhapsody'
+            parameters: ['youtube link or song name', 'time (optional)', 'name (optional)'],
+            example: '{guildprefix}about music https://youtube.com/watch?v=... --time 1:30 --name My Favorite Song'
           };
 
-          const input = args.slice(1).join(' ');
-          if (!input) return runHelpCommand(message, 'about');
+          const fullInput = args.slice(1).join(' ');
+          if (!fullInput) return runHelpCommand(message, 'about');
 
           // Check if user has a profile
           const existingProfile = await getProfile(message.author.id);
@@ -394,6 +394,22 @@ module.exports = {
           // Set cooldown
           updateCooldowns.set(`${message.author.id}-music`, now + UPDATE_COOLDOWN);
 
+          // Parse flags
+          const timeMatch = fullInput.match(/--time\s+(\d+):(\d+)/);
+          const nameMatch = fullInput.match(/--name\s+(.+?)(?:\s+--|$)/);
+          
+          let startTime = 0;
+          if (timeMatch) {
+            const minutes = parseInt(timeMatch[1]);
+            const seconds = parseInt(timeMatch[2]);
+            startTime = minutes * 60 + seconds;
+          }
+
+          const customName = nameMatch ? nameMatch[1].trim() : null;
+
+          // Remove flags from input
+          const input = fullInput.replace(/--time\s+\d+:\d+/g, '').replace(/--name\s+.+?(?=\s+--|$)/g, '').trim();
+
           // Check if input is a YouTube link
           const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
           const match = input.match(youtubeRegex);
@@ -404,7 +420,7 @@ module.exports = {
             const videoId = match[1];
             videoData = {
               videoId: videoId,
-              title: 'YouTube Video',
+              title: customName || 'YouTube Video',
               thumbnail: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
               url: `https://www.youtube.com/watch?v=${videoId}`
             };
@@ -413,6 +429,10 @@ module.exports = {
 
             if (!videoData) {
               return embeds.deny(message, '**No songs found** with that name on YouTube');
+            }
+
+            if (customName) {
+              videoData.title = customName;
             }
           }
 
@@ -423,10 +443,12 @@ module.exports = {
             songCover: videoData.thumbnail,
             songPreview: null,
             songUrl: videoData.url,
-            youtubeId: videoData.videoId
+            youtubeId: videoData.videoId,
+            songStartTime: startTime
           });
 
-          return embeds.success(message, `**Song updated** successfully\n\n🎵 **${videoData.title}**\n🔗 [Watch on YouTube](${videoData.url})`);
+          const timeInfo = startTime > 0 ? `\n⏱️ Starts at ${Math.floor(startTime / 60)}:${(startTime % 60).toString().padStart(2, '0')}` : '';
+          return embeds.success(message, `**Song updated** successfully\n\n🎵 **${videoData.title}**${timeInfo}\n🔗 [Watch on YouTube](${videoData.url})`);
         }
 
         case 'social':

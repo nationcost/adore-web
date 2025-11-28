@@ -101,6 +101,7 @@ interface Profile {
   songPreview: string | null;
   songUrl: string | null;
   youtubeId: string | null;
+  songStartTime: number;
   discordId: string;
   links: Array<{ type: string; url: string }>;
   createdAt: string;
@@ -196,6 +197,7 @@ const DynamicProfile: React.FC = () => {
         playerVars: {
           autoplay: 0,
           controls: 0,
+          start: profile.songStartTime || 0,
         },
         events: {
           onReady: (event: any) => {
@@ -226,7 +228,7 @@ const DynamicProfile: React.FC = () => {
             } else if (event.data === (window as any).YT.PlayerState.PAUSED) {
               setIsPlaying(false);
             } else if (event.data === (window as any).YT.PlayerState.ENDED) {
-              event.target.seekTo(0);
+              event.target.seekTo(profile.songStartTime || 0);
               event.target.playVideo();
             }
           }
@@ -265,9 +267,19 @@ const DynamicProfile: React.FC = () => {
     <div 
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="min-h-screen w-full bg-black text-white font-sans flex flex-col items-center justify-center relative overflow-hidden p-4"
-      style={{ cursor: 'crosshair' }}
+      className="min-h-screen w-full text-white font-sans flex flex-col items-center justify-center relative overflow-hidden p-4"
+      style={{ 
+        cursor: 'crosshair',
+        backgroundImage: profile.banner ? `url(${profile.banner})` : 'none',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: profile.banner ? 'transparent' : '#000'
+      }}
     >
+      {/* Dark overlay for readability */}
+      {profile.banner && (
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+      )}
       {/* Hidden YouTube Player for audio */}
       {profile.youtubeId && (
         <div id="youtube-player" className="hidden"></div>
@@ -292,22 +304,11 @@ const DynamicProfile: React.FC = () => {
       <SpotlightCard 
         mouseX={mousePos.x} 
         mouseY={mousePos.y}
-        className="w-full max-w-[400px] rounded-[32px] overflow-hidden text-center flex flex-col items-center animate-fade-in relative"
+        className="w-full max-w-[400px] rounded-[32px] overflow-hidden text-center flex flex-col items-center animate-fade-in relative z-10"
       >
-        {/* Banner */}
-        {profile.banner && (
-          <div className="absolute top-0 left-0 right-0 h-32 overflow-hidden">
-            <img 
-              src={profile.banner} 
-              alt="Banner" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/90" />
-          </div>
-        )}
 
         {/* Avatar */}
-        <div className={`relative z-10 flex justify-center ${profile.banner ? 'mt-20' : 'mt-8'}`}>
+        <div className="relative z-10 flex justify-center mt-8">
           <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-black/50 shadow-2xl bg-dark-700">
             <img 
               src={profile.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}
@@ -359,7 +360,7 @@ const DynamicProfile: React.FC = () => {
         <SpotlightCard 
           mouseX={mousePos.x} 
           mouseY={mousePos.y}
-          className="w-full max-w-[400px] rounded-[28px] p-5 animate-slide-up"
+          className="w-full max-w-[400px] rounded-[28px] p-5 animate-slide-up relative z-10"
         >
           <div className="flex items-center gap-4">
             {/* Album Art */}
@@ -412,20 +413,7 @@ const DynamicProfile: React.FC = () => {
             </button>
           </div>
 
-          {/* YouTube Link */}
-          {profile.songUrl && (
-            <div className="mt-4 pt-4 border-t border-white/5">
-              <a 
-                href={profile.songUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 text-xs text-gray-500 hover:text-white transition-colors group"
-              >
-                <YouTubeIcon className="w-4 h-4 group-hover:text-[#FF0000] transition-colors" />
-                <span>Watch on YouTube</span>
-              </a>
-            </div>
-          )}
+
         </SpotlightCard>
       )}
     </div>
