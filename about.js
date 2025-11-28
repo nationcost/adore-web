@@ -10,47 +10,23 @@ const axios = require('axios');
 const API_BASE_URL = process.env.API_BASE_URL || 'https://adore-api.vwsnxy.workers.dev';
 const BOT_API_KEY = process.env.BOT_API_KEY || 'e53f318f1132bffab427633f1f75fe6abd57925cfd90060c0bfec87e97621386';
 
-// Cache for profile lookups (5 minute TTL)
-const profileCache = new Map();
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-
 // Helper functions
 async function getProfile(discordId) {
   try {
-    // Check cache first
-    const cached = profileCache.get(discordId);
-    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-      return cached.profile;
-    }
-
-    // Fetch profile directly by Discord ID (fast!)
+    // Fetch profile directly by Discord ID
     const response = await axios.get(`${API_BASE_URL}/profile/id/${discordId}`, {
       headers: {
         'X-API-Key': BOT_API_KEY
       }
     });
     
-    if (response.data) {
-      // Cache the result
-      profileCache.set(discordId, {
-        profile: response.data,
-        timestamp: Date.now()
-      });
-      
-      return response.data;
-    }
-    return null;
+    return response.data || null;
   } catch (error) {
     if (error.response?.status === 404) {
       return null;
     }
     return null;
   }
-}
-
-// Clear cache for a user (call after updates)
-function clearProfileCache(discordId) {
-  profileCache.delete(discordId);
 }
 
 async function getProfileByUsername(username) {
@@ -177,8 +153,7 @@ module.exports = {
 
         await updateProfile(profileData);
 
-        // Clear cache and cooldown on success
-        clearProfileCache(message.author.id);
+        // Clear cooldown on success
         createCooldowns.delete(message.author.id);
 
         return embeds.success(message, `Created your ADORE profile!\n\n**Username:** ${username}\n**Profile:** https://adore.rest/${username.toLowerCase()}`);
@@ -214,7 +189,6 @@ module.exports = {
           displayName: name
         });
 
-        clearProfileCache(message.author.id);
         return embeds.success(message, `Updated your display name to **${name}**!`);
 
       } else if (args[0] === 'bio') {
@@ -255,7 +229,6 @@ module.exports = {
           bio: bio
         });
 
-        clearProfileCache(message.author.id);
         return embeds.success(message, `Updated your bio!\n\n${bio}`);
 
       } else if (args[0] === 'avatar') {
@@ -333,8 +306,6 @@ module.exports = {
           discordId: message.author.id,
           avatar: avatarUrl
         });
-
-        clearProfileCache(message.author.id);
 
         const embed = new EmbedBuilder()
           .setColor(config.colors.success)
@@ -418,8 +389,6 @@ module.exports = {
           banner: bannerUrl
         });
 
-        clearProfileCache(message.author.id);
-
         const embed = new EmbedBuilder()
           .setColor(config.colors.success)
           .setDescription(`${config.emojis.success} <@${message.author.id}>: ${bannerUrl ? 'Banner updated!' : 'Banner removed!'}`);
@@ -499,8 +468,6 @@ module.exports = {
           songUrl: trackData.external_urls.spotify
         });
 
-        clearProfileCache(message.author.id);
-
         const embed = new EmbedBuilder()
           .setColor(config.colors.success)
           .setDescription(`${config.emojis.success} <@${message.author.id}>: Song updated!\n\n🎵 **${trackData.name}** by ${trackData.artists[0].name}`)
@@ -559,8 +526,6 @@ module.exports = {
           discordId: message.author.id,
           links: links
         });
-
-        clearProfileCache(message.author.id);
 
         return embeds.success(message, `Social link added!\n\n**Platform:** ${detectedPlatform.charAt(0).toUpperCase() + detectedPlatform.slice(1)}\n**URL:** ${link}\n**Total Links:** ${links.length}`);
 
