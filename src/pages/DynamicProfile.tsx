@@ -100,6 +100,7 @@ interface Profile {
   songCover: string | null;
   songPreview: string | null;
   songUrl: string | null;
+  youtubeId: string | null;
   discordId: string;
   links: Array<{ type: string; url: string }>;
   createdAt: string;
@@ -258,14 +259,15 @@ const DynamicProfile: React.FC = () => {
       className="min-h-screen w-full bg-black text-white font-sans flex flex-col items-center justify-center relative overflow-hidden p-4"
       style={{ cursor: 'crosshair' }}
     >
-      {/* Audio Element */}
-      {profile.song && (
-        <audio 
-          ref={audioRef}
-          src={profile.songPreview || `/media/music/${profile.song}.mp3`}
-          loop
-          preload="auto"
-        />
+      {/* YouTube Player (hidden, for audio only) */}
+      {profile.youtubeId && (
+        <div className="hidden">
+          <iframe
+            ref={audioRef as any}
+            src={`https://www.youtube.com/embed/${profile.youtubeId}?enablejsapi=1&autoplay=0`}
+            allow="autoplay"
+          />
+        </div>
       )}
 
       {/* Frosted Glass Overlay */}

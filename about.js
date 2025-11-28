@@ -72,6 +72,37 @@ async function getSpotifyToken() {
   return response.data.access_token;
 }
 
+async function searchYouTube(query) {
+  const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY || 'AIzaSyDummy'; // You'll need to add this
+  
+  try {
+    const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+      params: {
+        part: 'snippet',
+        q: query,
+        type: 'video',
+        videoCategoryId: '10', // Music category
+        maxResults: 1,
+        key: YOUTUBE_API_KEY
+      }
+    });
+
+    if (response.data.items && response.data.items.length > 0) {
+      const video = response.data.items[0];
+      return {
+        videoId: video.id.videoId,
+        title: video.snippet.title,
+        thumbnail: video.snippet.thumbnails.high.url,
+        url: `https://www.youtube.com/watch?v=${video.id.videoId}`
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error('YouTube search error:', error);
+    return null;
+  }
+}
+
 function detectPlatform(url) {
   const patterns = {
     discord: /discord\.com\/users\/|discordapp\.com\/users\//i,
@@ -402,9 +433,9 @@ module.exports = {
       } else if (args[0] === 'music' || args[0] === 'song') {
         const subcommandInfo = {
           description: 'Set your favorite song on your ADORE profile',
-          syntax: '{guildprefix}about music [spotify link or song name]',
+          syntax: '{guildprefix}about music [youtube link or song name]',
           aliases: ['song'],
-          parameters: ['spotify link or song name'],
+          parameters: ['youtube link or song name'],
           example: '{guildprefix}about music Bohemian Rhapsody'
         };
 
@@ -428,50 +459,45 @@ module.exports = {
         // Set cooldown
         updateCooldowns.set(`${message.author.id}-music`, now + UPDATE_COOLDOWN);
 
-        // Check if input is a Spotify link
-        const spotifyRegex = /spotify\.com\/track\/([a-zA-Z0-9]+)/;
-        const match = input.match(spotifyRegex);
+        // Check if input is a YouTube link
+        const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = input.match(youtubeRegex);
 
-        let trackData;
-        const accessToken = await getSpotifyToken();
+        let videoData;
 
         if (match) {
-          // Fetch track by ID
-          const trackId = match[1];
-          const response = await axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {
-            headers: { 'Authorization': `Bearer ${accessToken}` }
-          });
-          trackData = response.data;
+          // Extract video ID from link
+          const videoId = match[1];
+          videoData = {
+            videoId: videoId,
+            title: 'YouTube Video', // We'll get the title from API if needed
+            thumbnail: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+            url: `https://www.youtube.com/watch?v=${videoId}`
+          };
         } else {
-          // Search for track
-          const response = await axios.get(
-            `https://api.spotify.com/v1/search?q=${encodeURIComponent(input)}&type=track&limit=1`,
-            {
-              headers: { 'Authorization': `Bearer ${accessToken}` }
-            }
-          );
+          // Search YouTube for the song
+          videoData = await searchYouTube(input);
 
-          if (!response.data.tracks.items.length) {
-            return embeds.deny(message, 'No songs found with that name!');
+          if (!videoData) {
+            return embeds.deny(message, 'No songs found with that name on YouTube!');
           }
-
-          trackData = response.data.tracks.items[0];
         }
 
         // Update profile with song data
         await updateProfile({
           discordId: message.author.id,
-          song: trackData.name,
-          songArtist: trackData.artists[0].name,
-          songCover: trackData.album.images[0]?.url,
-          songPreview: trackData.preview_url,
-          songUrl: trackData.external_urls.spotify
+          song: videoData.title,
+          songArtist: 'YouTube', // Can be parsed from title if needed
+          songCover: videoData.thumbnail,
+          songPreview: null, // YouTube doesn't have preview URLs
+          songUrl: videoData.url,
+          youtubeId: videoData.videoId // Store YouTube video ID
         });
 
         const embed = new EmbedBuilder()
           .setColor(config.colors.success)
-          .setDescription(`${config.emojis.success} <@${message.author.id}>: Song updated!\n\n🎵 **${trackData.name}** by ${trackData.artists[0].name}`)
-          .setThumbnail(trackData.album.images[0]?.url);
+          .setDescription(`${config.emojis.success} <@${message.author.id}>: Song updated!\n\n🎵 **${videoData.title}**\n🔗 [Watch on YouTube](${videoData.url})`)
+          .setThumbnail(videoData.thumbnail);
 
         return message.channel.send({ embeds: [embed] });
 
