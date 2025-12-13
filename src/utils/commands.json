@@ -36,6 +36,213 @@
       "permission": "owner"
     }
   ],
+  "developer": [
+    {
+      "name": "reboot",
+      "description": "Restart the bot",
+      "aliases": [],
+      "syntax": "reboot",
+      "permission": "Developer"
+    },
+    {
+      "name": "say",
+      "description": "Make the bot say something",
+      "aliases": [],
+      "syntax": "say (message)",
+      "permission": "Developer"
+    },
+    {
+      "name": "traceback",
+      "description": "View a stored error traceback",
+      "aliases": [
+        "tb",
+        "error"
+      ],
+      "syntax": "traceback (code)",
+      "permission": "Developer"
+    },
+    {
+      "name": "tracebackclear",
+      "description": "Clear all stored errors",
+      "aliases": [
+        "tbc"
+      ],
+      "syntax": "tracebackclear",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist",
+      "description": "Manage blacklisted users and servers",
+      "aliases": [],
+      "syntax": "blacklist (subcommand)",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist user add",
+      "description": "Blacklist a user",
+      "aliases": [],
+      "syntax": "blacklist user add (user)",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist user remove",
+      "description": "Remove a user from blacklist",
+      "aliases": [],
+      "syntax": "blacklist user remove (user)",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist user check",
+      "description": "Check if a user is blacklisted",
+      "aliases": [],
+      "syntax": "blacklist user check (user)",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist user list",
+      "description": "List all blacklisted users",
+      "aliases": [],
+      "syntax": "blacklist user list",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist server add",
+      "description": "Blacklist a server",
+      "aliases": [],
+      "syntax": "blacklist server add (server)",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist server remove",
+      "description": "Remove a server from blacklist",
+      "aliases": [],
+      "syntax": "blacklist server remove (server)",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist server check",
+      "description": "Check if a server is blacklisted",
+      "aliases": [],
+      "syntax": "blacklist server check (server)",
+      "permission": "Developer"
+    },
+    {
+      "name": "blacklist server list",
+      "description": "List all blacklisted servers",
+      "aliases": [],
+      "syntax": "blacklist server list",
+      "permission": "Developer"
+    },
+    {
+      "name": "donator",
+      "description": "Manage donators",
+      "aliases": [
+        "donor"
+      ],
+      "syntax": "donator (subcommand)",
+      "permission": "Developer"
+    },
+    {
+      "name": "donator add",
+      "description": "Add donator status to a user",
+      "aliases": [],
+      "syntax": "donator add (user)",
+      "permission": "Developer"
+    },
+    {
+      "name": "donator remove",
+      "description": "Remove donator status from a user",
+      "aliases": [],
+      "syntax": "donator remove (user)",
+      "permission": "Developer"
+    },
+    {
+      "name": "donator check",
+      "description": "Check donator status of a user",
+      "aliases": [],
+      "syntax": "donator check [user]",
+      "permission": "Developer"
+    },
+    {
+      "name": "donator list",
+      "description": "List all donators",
+      "aliases": [],
+      "syntax": "donator list",
+      "permission": "Developer"
+    },
+    {
+      "name": "premium",
+      "description": "Manage premium servers",
+      "aliases": [
+        "prem"
+      ],
+      "syntax": "premium (subcommand)",
+      "permission": "Developer"
+    },
+    {
+      "name": "premium add",
+      "description": "Add premium to a server",
+      "aliases": [],
+      "syntax": "premium add (server)",
+      "permission": "Developer"
+    },
+    {
+      "name": "premium remove",
+      "description": "Remove premium from a server",
+      "aliases": [],
+      "syntax": "premium remove (server)",
+      "permission": "Developer"
+    },
+    {
+      "name": "premium check",
+      "description": "Check premium status of a server",
+      "aliases": [],
+      "syntax": "premium check [server]",
+      "permission": "Developer"
+    },
+    {
+      "name": "premium list",
+      "description": "List all premium servers",
+      "aliases": [],
+      "syntax": "premium list",
+      "permission": "Developer"
+    },
+    {
+      "name": "whitelist",
+      "description": "Manage whitelisted servers",
+      "aliases": [],
+      "syntax": "whitelist (subcommand)",
+      "permission": "Developer"
+    },
+    {
+      "name": "whitelist add",
+      "description": "Whitelist a server",
+      "aliases": [],
+      "syntax": "whitelist add (server id)",
+      "permission": "Developer"
+    },
+    {
+      "name": "whitelist remove",
+      "description": "Remove a server from whitelist",
+      "aliases": [],
+      "syntax": "whitelist remove (server id)",
+      "permission": "Developer"
+    },
+    {
+      "name": "whitelist check",
+      "description": "Check if a server is whitelisted",
+      "aliases": [],
+      "syntax": "whitelist check (server id)",
+      "permission": "Developer"
+    },
+    {
+      "name": "whitelist list",
+      "description": "List all whitelisted servers",
+      "aliases": [],
+      "syntax": "whitelist list",
+      "permission": "Developer"
+    }
+  ],
   "information": [
     {
       "name": "help",
@@ -108,6 +315,43 @@
         "userinfo"
       ],
       "syntax": "whois [user]",
+      "permission": "None"
+    },
+    {
+      "name": "roleinfo",
+      "description": "View information about a role",
+      "aliases": [
+        "ri"
+      ],
+      "syntax": "roleinfo (role)",
+      "permission": "None"
+    },
+    {
+      "name": "channelinfo",
+      "description": "View information about a channel",
+      "aliases": [
+        "ci"
+      ],
+      "syntax": "channelinfo [channel]",
+      "permission": "None"
+    },
+    {
+      "name": "serverinfo",
+      "description": "View information about the server",
+      "aliases": [
+        "si",
+        "guildinfo"
+      ],
+      "syntax": "serverinfo",
+      "permission": "None"
+    },
+    {
+      "name": "membercount",
+      "description": "View the server's member count",
+      "aliases": [
+        "mc"
+      ],
+      "syntax": "membercount",
       "permission": "None"
     }
   ],
@@ -534,6 +778,90 @@
       "permission": "manage_guild"
     },
     {
+      "name": "buttonrole",
+      "description": "Manage button roles on messages",
+      "aliases": [],
+      "syntax": "buttonrole (subcommand)",
+      "permission": "manage_roles"
+    },
+    {
+      "name": "buttonrole add",
+      "description": "Add a button role to a message",
+      "aliases": [],
+      "syntax": "buttonrole add (message link) (style) (emote) (name) (role)",
+      "permission": "manage_roles"
+    },
+    {
+      "name": "buttonrole remove",
+      "description": "Remove a button role from a message",
+      "aliases": [],
+      "syntax": "buttonrole remove (message link) (role)",
+      "permission": "manage_roles"
+    },
+    {
+      "name": "buttonrole removeall",
+      "description": "Remove all button roles from a message",
+      "aliases": [],
+      "syntax": "buttonrole removeall (message link)",
+      "permission": "manage_roles"
+    },
+    {
+      "name": "buttonrole list",
+      "description": "List all button roles",
+      "aliases": [],
+      "syntax": "buttonrole list",
+      "permission": "manage_roles"
+    },
+    {
+      "name": "buttonrole reset",
+      "description": "Remove all button roles",
+      "aliases": [],
+      "syntax": "buttonrole reset",
+      "permission": "manage_roles"
+    },
+    {
+      "name": "buttonresponse",
+      "description": "Manage button responses on messages",
+      "aliases": [],
+      "syntax": "buttonresponse (subcommand)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "buttonresponse add",
+      "description": "Add a button response to a message",
+      "aliases": [],
+      "syntax": "buttonresponse add (message link) (style) (emote) (name), (response)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "buttonresponse remove",
+      "description": "Remove a button response from a message",
+      "aliases": [],
+      "syntax": "buttonresponse remove (message link) (button id)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "buttonresponse removeall",
+      "description": "Remove all button responses from a message",
+      "aliases": [],
+      "syntax": "buttonresponse removeall (message link)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "buttonresponse list",
+      "description": "List all button responses",
+      "aliases": [],
+      "syntax": "buttonresponse list",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "buttonresponse reset",
+      "description": "Remove all button responses",
+      "aliases": [],
+      "syntax": "buttonresponse reset",
+      "permission": "manage_guild"
+    },
+    {
       "name": "reaction",
       "description": "Manage automatic reactions on channels",
       "aliases": [],
@@ -674,6 +1002,118 @@
       "permission": "manage_guild"
     },
     {
+      "name": "boost award",
+      "description": "Manage the boost award role",
+      "aliases": [],
+      "syntax": "boost award (subcommand)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "boost award set",
+      "description": "Set the role to award to boosters",
+      "aliases": [],
+      "syntax": "boost award set (role)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "boost award view",
+      "description": "View the current boost award role",
+      "aliases": [],
+      "syntax": "boost award view",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "boost award unset",
+      "description": "Remove the boost award role",
+      "aliases": [],
+      "syntax": "boost award unset",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter",
+      "description": "Manage server automod filters using Discord AutoMod",
+      "aliases": [],
+      "syntax": "filter (subcommand)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter add",
+      "description": "Add a word to the filter",
+      "aliases": [],
+      "syntax": "filter add (word)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter remove",
+      "description": "Remove a word from the filter",
+      "aliases": [],
+      "syntax": "filter remove (word)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter exempt",
+      "description": "Exempt a role, user, or channel from the word filter",
+      "aliases": [],
+      "syntax": "filter exempt (role/user/channel)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter list",
+      "description": "List all filtered words",
+      "aliases": [],
+      "syntax": "filter list",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter links on",
+      "description": "Enable link filtering",
+      "aliases": [],
+      "syntax": "filter links on",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter links off",
+      "description": "Disable link filtering",
+      "aliases": [],
+      "syntax": "filter links off",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter links exempt",
+      "description": "Exempt a role or channel from link filtering",
+      "aliases": [],
+      "syntax": "filter links exempt (role/channel)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter invites on",
+      "description": "Enable invite link filtering",
+      "aliases": [],
+      "syntax": "filter invites on",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter invites off",
+      "description": "Disable invite link filtering",
+      "aliases": [],
+      "syntax": "filter invites off",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter invites exempt",
+      "description": "Exempt a role or channel from invite filtering",
+      "aliases": [],
+      "syntax": "filter invites exempt (role/channel)",
+      "permission": "manage_guild"
+    },
+    {
+      "name": "filter reset",
+      "description": "Reset all filters (removes all AutoMod rules)",
+      "aliases": [],
+      "syntax": "filter reset",
+      "permission": "manage_guild"
+    },
+    {
       "name": "role",
       "description": "Manage roles for members",
       "aliases": [],
@@ -770,6 +1210,87 @@
       "aliases": [],
       "syntax": "role restore (member)",
       "permission": "manage_roles"
+    },
+    {
+      "name": "boosterrole",
+      "description": "Manage your custom booster role",
+      "aliases": [
+        "br"
+      ],
+      "syntax": "boosterrole (subcommand)",
+      "permission": "None"
+    },
+    {
+      "name": "boosterrole create",
+      "description": "Create your custom booster role",
+      "aliases": [],
+      "syntax": "boosterrole create [name]",
+      "permission": "None"
+    },
+    {
+      "name": "boosterrole color",
+      "description": "Change your booster role color",
+      "aliases": [],
+      "syntax": "boosterrole color (color)",
+      "permission": "None"
+    },
+    {
+      "name": "boosterrole icon",
+      "description": "Change your booster role icon",
+      "aliases": [],
+      "syntax": "boosterrole icon (emoji)",
+      "permission": "None"
+    },
+    {
+      "name": "boosterrole share",
+      "description": "Share your booster role with another user",
+      "aliases": [],
+      "syntax": "boosterrole share (user)",
+      "permission": "None"
+    },
+    {
+      "name": "boosterrole unshare",
+      "description": "Remove a user from your shared role",
+      "aliases": [],
+      "syntax": "boosterrole unshare (user)",
+      "permission": "None"
+    },
+    {
+      "name": "boosterrole name",
+      "description": "Rename your booster role",
+      "aliases": [
+        "rename"
+      ],
+      "syntax": "boosterrole name (new name)",
+      "permission": "None"
+    },
+    {
+      "name": "boosterrole remove",
+      "description": "Delete your booster role",
+      "aliases": [],
+      "syntax": "boosterrole remove",
+      "permission": "None"
+    },
+    {
+      "name": "boosterrole list",
+      "description": "List all booster roles in the server",
+      "aliases": [],
+      "syntax": "boosterrole list",
+      "permission": "manage_roles"
+    },
+    {
+      "name": "boosterrole cleanup",
+      "description": "Remove booster roles from users who stopped boosting",
+      "aliases": [],
+      "syntax": "boosterrole cleanup",
+      "permission": "manage_roles"
+    },
+    {
+      "name": "settings baserole",
+      "description": "Set the base role for booster role positioning",
+      "aliases": [],
+      "syntax": "settings baserole (role)",
+      "permission": "administrator"
     }
   ],
   "utility": [
@@ -957,7 +1478,7 @@
       "permission": "None"
     }
   ],
-  "nonsense": [
+  "fun": [
     {
       "name": "nword",
       "description": "Check how many times you've said the n-word",
