@@ -21,7 +21,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
 }) => {
   return (
     <div
-      className={`relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-lg hover:border-white/20 transition-colors duration-200 ${className}`}
+      className={`relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-xl hover:border-white/20 transition-colors duration-200 ${className}`}
     >
       {/* Remove all fancy effects, just keep content */}
       <div className="relative z-10 h-full">

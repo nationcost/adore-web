@@ -58,7 +58,7 @@ const CommandCard: React.FC<Props> = ({ command }) => {
 
                 {/* Command Name */}
                 <div className="flex items-center gap-2 pr-8">
-                    <div className={`p-2 rounded-lg border flex items-center justify-center ${hasSpecialIcon
+                    <div className={`p-2 rounded-xl border flex items-center justify-center ${hasSpecialIcon
                         ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' // Gold for special
                         : 'bg-white/[0.03] border-white/5 text-gray-400'
                         }`}>
@@ -86,7 +86,7 @@ const CommandCard: React.FC<Props> = ({ command }) => {
                             args.slice(0, 2).map((arg, idx) => (
                                 <span
                                     key={idx}
-                                    className="inline-flex items-center bg-white/[0.03] border border-white/[0.05] text-gray-500 text-[10px] px-2 py-0.5 rounded-md font-medium uppercase tracking-wider"
+                                    className="inline-flex items-center bg-white/[0.03] border border-white/[0.05] text-gray-500 text-[10px] px-2 py-0.5 rounded-lg font-medium uppercase tracking-wider"
                                 >
                                     {arg}
                                 </span>
@@ -102,7 +102,7 @@ const CommandCard: React.FC<Props> = ({ command }) => {
                     {/* Permission Badge */}
                     <div className="flex-shrink-0">
                         {command.permissions && command.permissions.length > 0 && command.permissions[0] ? (
-                            <span className="inline-flex items-center text-[10px] text-gray-500 font-medium bg-white/[0.02] border border-white/5 px-2 py-0.5 rounded-md capitalize">
+                            <span className="inline-flex items-center text-[10px] text-gray-500 font-medium bg-white/[0.02] border border-white/5 px-2 py-0.5 rounded-lg capitalize">
                                 {command.permissions[0].replace(/_/g, ' ').toLowerCase()}
                             </span>
                         ) : (

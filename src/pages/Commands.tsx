@@ -83,9 +83,9 @@ const Commands: React.FC = () => {
                     </p>
                 </div>
 
-                {/* Search Bar - Simple Style */}
+                {/* Search Bar - Rounder Style */}
                 <div className="w-full md:w-auto">
-                    <div className="relative flex items-center gap-3 bg-white/[0.05] border border-white/10 focus-within:border-white/20 rounded-lg px-5 py-3 transition-colors duration-200 w-full md:w-80">
+                    <div className="relative flex items-center gap-3 bg-white/[0.05] border border-white/10 focus-within:border-white/20 rounded-xl px-5 py-3 transition-colors duration-200 w-full md:w-80">
                         <Search size={18} className="text-gray-500" />
                         <input
                             type="text"
@@ -98,7 +98,7 @@ const Commands: React.FC = () => {
                 </div>
             </div>
 
-            {/* Category Tabs - Simple Tabs */}
+            {/* Category Tabs - Rounder Tabs */}
             <div className="mb-10 overflow-x-auto hide-scrollbar pb-4 -mx-4 md:mx-0 px-4 md:px-0">
                 <div className="flex items-center gap-2 md:flex-wrap">
                     {categories.map(cat => {
@@ -111,7 +111,7 @@ const Commands: React.FC = () => {
                                     setActiveCategory(cat);
                                     setSearchQuery('');
                                 }}
-                                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-colors duration-200 ${isActive
+                                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-colors duration-200 ${isActive
                                     ? 'text-white bg-white/10'
                                     : 'text-gray-500 hover:text-white hover:bg-white/5'
                                     }`}
