@@ -92,6 +92,7 @@ const App: React.FC = () => {
           <Route path="/commands" element={<Commands />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/doc" element={<DocRedirect />} />
+          <Route path="/docs" element={<DocRedirect />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/authorized" element={<Authorized />} />
