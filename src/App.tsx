@@ -33,7 +33,7 @@ const ServerRedirect = () => {
 
 const DocRedirect = () => {
   React.useEffect(() => {
-    window.location.href = 'https://proxy.gitbook.site/sites/site_RHK6F/';
+    window.location.href = 'https://adore.gitbook.io/docs';
   }, []);
   return null;
 };

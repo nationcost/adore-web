@@ -2,11 +2,9 @@
   RewriteEngine On
   RewriteBase /
 
-  # GitBook Proxy
-  # mod_proxy is disabled on your server, so we must use a Redirect instead.
-  # This will change the URL in the browser to the GitBook site.
-  RewriteRule ^docs$ https://proxy.gitbook.site/sites/site_RHK6F/ [R=301,L]
-  RewriteRule ^docs/(.*)$ https://proxy.gitbook.site/sites/site_RHK6F/$1 [R=301,L]
+  # GitBook Redirect
+  RewriteRule ^docs$ https://adore.gitbook.io/docs [R=301,L]
+  RewriteRule ^docs/(.*)$ https://adore.gitbook.io/docs/$1 [R=301,L]
 
   # SPA Routing
   RewriteRule ^index\.html$ - [L]
