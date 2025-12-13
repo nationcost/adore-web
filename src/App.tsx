@@ -33,7 +33,7 @@ const ServerRedirect = () => {
 
 const DocRedirect = () => {
   React.useEffect(() => {
-    window.location.href = '/docs';
+    window.location.href = 'https://proxy.gitbook.site/sites/site_RHK6F/';
   }, []);
   return null;
 };
