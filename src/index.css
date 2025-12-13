@@ -1,6 +1,10 @@
 /* Custom CSS */
 /* Tailwind classes are handled by the CDN script in index.html */
 
+html, body {
+  cursor: url('/media/angel-wings.png') 16 16, crosshair;
+}
+
 body {
   background-color: #050708;
   color: #ffffff;
