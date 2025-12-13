@@ -1,0 +1,721 @@
+================================================================================
+                           BOT DOCUMENTATION
+================================================================================
+
+This documentation covers all commands, embed/container creation syntax,
+variables, flags, and usage examples.
+
+================================================================================
+                              TABLE OF CONTENTS
+================================================================================
+
+1. Command Reference
+2. Embed System
+   - Basic Embed Syntax
+   - Container Syntax (Components V2)
+   - Variables
+   - Flags
+   - Buttons
+3. Usage Examples
+
+================================================================================
+                           1. COMMAND REFERENCE
+================================================================================
+
+Command Types:
+  • hybrid        = Both slash (/) and prefix command
+  • hybrid_group  = Both slash and prefix with subcommands
+  • prefix_only   = Prefix command only (no slash)
+  • prefix_group  = Prefix command only with subcommands
+
+Permission Levels:
+  • None              = No permission required
+  • donator           = Donator status required
+  • manage_messages   = Manage Messages permission
+  • manage_channels   = Manage Channels permission
+  • manage_roles      = Manage Roles permission
+  • manage_guild      = Manage Server permission
+  • moderate_members  = Moderate Members permission (timeout)
+  • kick_members      = Kick Members permission
+  • ban_members       = Ban Members permission
+  • administrator     = Administrator permission
+  • server_owner      = Server owner only
+  • owner             = Server owner or fake owner
+
+--------------------------------------------------------------------------------
+                              CUSTOMIZE COMMANDS
+--------------------------------------------------------------------------------
+
+customize [hybrid_group] - Customize bot settings for this server
+  Permission: manage_guild
+  ├── avatar    - Set or reset the bot's custom avatar for this server
+  ├── banner    - Set or reset the bot's custom banner for this server
+  ├── bio       - Set or reset the bot's custom bio for this server
+  └── color     - Set or reset the default embed color (owner only)
+
+--------------------------------------------------------------------------------
+                             INFORMATION COMMANDS
+--------------------------------------------------------------------------------
+
+help [hybrid] - View help for a command or list all commands
+  Aliases: h, commands
+  Permission: None
+
+latency [hybrid] - Check the bot's current latency
+  Aliases: ms, ping
+  Permission: None
+
+uptime [hybrid] - Check how long the bot has been online
+  Permission: None
+
+avatar [hybrid] - View a user's avatar
+  Aliases: av, pfp
+  Permission: None
+
+serveravatar [hybrid] - View a user's server avatar
+  Aliases: sav, spfp
+  Permission: None
+
+banner [hybrid] - View a user's banner
+  Permission: None
+
+serverbanner [hybrid] - View a user's server banner
+  Aliases: sbanner
+  Permission: None
+
+whois [hybrid] - View information about a user
+  Aliases: ui, userinfo
+  Permission: None
+
+--------------------------------------------------------------------------------
+                             MODERATION COMMANDS
+--------------------------------------------------------------------------------
+
+ban [hybrid] - Ban a user from the server
+  Aliases: deport
+  Permission: ban_members
+
+softban [hybrid] - Ban and immediately unban a member (clears their messages)
+  Permission: ban_members
+
+unban [hybrid] - Unban a user from the server
+  Permission: ban_members
+
+kick [hybrid] - Kick a member from the server
+  Aliases: boot
+  Permission: kick_members
+
+lock [hybrid] - Lock a channel or thread to prevent members from sending messages
+  Permission: manage_channels
+
+unlock [hybrid] - Unlock a channel or thread to allow members to send messages
+  Permission: manage_channels
+
+hide [hybrid] - Hide a channel from members
+  Permission: manage_channels
+
+unhide [hybrid] - Unhide a channel to make it visible to members
+  Permission: manage_channels
+
+lockall [hybrid] - Lock all text channels in the server
+  Permission: manage_guild
+
+unlockall [hybrid] - Unlock all text channels in the server
+  Permission: manage_guild
+
+topic [hybrid] - Change the topic of a channel
+  Permission: manage_channels
+
+slowmode [hybrid] - Set or remove slowmode for a channel
+  Permission: manage_channels
+
+jail [hybrid] - Jail a member (removes all roles, restricts access)
+  Permission: manage_roles
+
+unjail [hybrid] - Unjail a member (restores their roles)
+  Permission: manage_roles
+
+mute [hybrid] - Mute a member (prevents typing and reactions)
+  Aliases: sybau
+  Permission: manage_messages
+
+unmute [hybrid] - Unmute a member
+  Permission: manage_messages
+
+imute [hybrid] - Image mute a member (prevents attachments/embeds)
+  Permission: manage_messages
+
+iunmute [hybrid] - Remove image mute from a member
+  Permission: manage_messages
+
+rmute [hybrid] - Reaction mute a member (prevents reactions/stickers)
+  Permission: manage_messages
+
+runmute [hybrid] - Remove reaction mute from a member
+  Permission: manage_messages
+
+timeout [hybrid] - Timeout a member using Discord's timeout feature
+  Aliases: to
+  Permission: moderate_members
+
+untimeout [hybrid] - Remove timeout from a member
+  Aliases: uto
+  Permission: moderate_members
+
+warn [hybrid] - Warn a member
+  Permission: manage_messages
+
+clearwarns [hybrid] - Clear all warnings for a member
+  Permission: manage_messages
+
+warnings [hybrid] - View warnings for a member
+  Aliases: warns
+  Permission: manage_messages
+
+setup [hybrid] - Setup jail role and mod-log channel
+  Permission: administrator
+
+setupmute [hybrid] - Setup mute roles (muted, imuted, rmuted)
+  Permission: administrator
+
+modstats [hybrid] - View moderation statistics for a moderator
+  Permission: manage_messages
+
+modhistory [hybrid] - View moderation history for a moderator
+  Aliases: mhistory
+  Permission: manage_messages
+
+history [hybrid_group] - View punishment history for a member
+  Permission: manage_messages
+  ├── view      - View details of a specific case
+  ├── remove    - Remove a specific case from history (administrator)
+  └── removeall - Remove all cases for a member (administrator)
+
+reason [hybrid] - Update the reason for a case
+  Permission: manage_messages
+
+--------------------------------------------------------------------------------
+                               SERVER COMMANDS
+--------------------------------------------------------------------------------
+
+prefix [hybrid_group] - View or manage the server prefix
+  Permission: None
+  ├── view   - View the current prefix (None)
+  ├── set    - Set a custom prefix for the server (administrator)
+  └── remove - Reset the prefix to default (administrator)
+              Aliases: reset
+
+selfprefix [prefix_group] - View or manage your personal prefix
+  Permission: donator
+  ├── set    - Set a custom prefix for yourself
+  └── remove - Remove your personal prefix
+
+settings [hybrid_group] - Manage server settings
+  Permission: None
+  └── fakeowner - Set or remove a fake owner (server_owner)
+
+overview [hybrid] - View an overview of the server's configuration
+  Aliases: ov
+  Permission: None
+
+autorole [hybrid_group] - Manage roles automatically assigned to new members
+  Permission: administrator
+  ├── add    - Add a role to be assigned to new members
+  ├── remove - Remove a role from autoroles
+  ├── list   - List all autoroles
+  └── reset  - Remove all autoroles
+
+autoreact [hybrid_group] - Manage automatic reactions to trigger words
+  Permission: manage_guild
+  ├── add       - Add an autoreact emoji to a trigger word
+  ├── remove    - Remove an autoreact emoji from a trigger word
+  ├── deleteall - Delete all reactions for a trigger word
+  ├── list      - List all autoreacts
+  └── reset     - Remove all autoreacts
+
+autoresponder [hybrid_group] - Manage automatic responses to triggers
+  Aliases: ar
+  Permission: manage_guild
+  ├── add    - Add an autoresponse trigger
+  ├── remove - Remove an autoresponse trigger
+  ├── list   - List all autoresponders
+  ├── view   - View an autoresponse
+  └── reset  - Remove all autoresponders
+
+reaction [hybrid_group] - Manage automatic reactions on channels
+  Permission: manage_guild
+  ├── add    - Add reactions to a channel
+  ├── remove - Remove reactions from a channel
+  ├── list   - List all channel reaction
+  └── reset  - Remove all channel reactions
+
+role [hybrid_group] - Manage roles for members
+  Permission: manage_roles
+  ├── add     - Add a role to a member
+  ├── has     - Manage role assignments for members with a specific role
+  │   ├── add    - Add a role to all members who have a specific role (administrator)
+  │   └── remove - Remove a role from all members who have a specific role (administrator)
+  ├── humans  - Add a role to all human members (administrator)
+  ├── bots    - Add a role to all bot members (administrator)
+  ├── cancel  - Cancel a pending mass role operation
+  ├── create  - Create a new role
+  ├── delete  - Delete a role
+  ├── color   - Change a role's color
+  ├── icon    - Change a role's icon
+  ├── rename  - Rename a role
+  └── restore - Restore roles for a member who left and rejoined
+
+welcome [hybrid_group] - Manage welcome messages for new members
+  Permission: manage_guild
+  ├── add    - Add a welcome message to a channel
+  ├── remove - Remove a welcome message from a channel
+  ├── list   - List all welcome messages
+  └── view   - View a welcome message for a channel
+
+leave [hybrid_group] - Manage leave messages for departing members
+  Permission: manage_guild
+  ├── add    - Add a leave message to a channel
+  ├── remove - Remove a leave message from a channel
+  ├── list   - List all leave messages
+  └── view   - View a leave message for a channel
+
+boost [hybrid_group] - Manage boost messages for server boosters
+  Permission: manage_guild
+  ├── add    - Add a boost message to a channel
+  ├── remove - Remove a boost message from a channel
+  ├── list   - List all boost messages
+  └── view   - View a boost message for a channel
+
+--------------------------------------------------------------------------------
+                              UTILITY COMMANDS
+--------------------------------------------------------------------------------
+
+alias [hybrid_group] - Manage server command aliases
+  Aliases: shortcut
+  Permission: administrator
+  ├── add       - Add a shortcut alias for a command
+  ├── remove    - Remove a specific alias for a command
+  ├── removeall - Remove all aliases for a specific command
+  ├── view      - View what command an alias maps to
+  ├── list      - List all server aliases
+  └── reset     - Remove all server aliases
+
+selfalias [prefix_group] - Manage your personal donator aliases
+  Permission: donator
+  ├── add       - Add a shortcut alias for a command
+  ├── remove    - Remove a specific alias
+  ├── removeall - Remove all aliases for a specific command
+  ├── view      - View what command an alias maps to
+  ├── list      - List all your donator aliases
+  └── reset     - Remove all your donator aliases
+
+color [hybrid] - Display color information from a color code or name
+  Aliases: colour
+  Permission: None
+
+hex [prefix_only] - Get dominant colors from a picture
+  Aliases: dominant
+  Permission: None
+
+createembed [hybrid] - Create a custom embed or container
+  Aliases: ce
+  Permission: manage_messages
+
+copyembed [hybrid] - Get the embed code from a message
+  Permission: manage_messages
+
+remind [hybrid_group] - Set a reminder
+  Permission: None
+  ├── remove - Remove a reminder
+  └── list   - List all your reminders
+
+--------------------------------------------------------------------------------
+                              NONSENSE COMMANDS
+--------------------------------------------------------------------------------
+
+nword [prefix_group] - Check how many times you've said the n-word
+  Permission: None
+  └── leaderboard - View the global nword leaderboard
+                    Aliases: lb
+
+================================================================================
+                           2. EMBED SYSTEM
+================================================================================
+
+The bot supports two types of rich messages:
+  • Embeds     - Traditional Discord embeds with title, description, fields, etc.
+  • Containers - Discord Components V2 with text, sections, galleries, buttons
+
+Both can be used in: createembed, autoresponder, welcome, leave, boost messages
+
+--------------------------------------------------------------------------------
+                          BASIC EMBED SYNTAX
+--------------------------------------------------------------------------------
+
+Format: {embed}$v{property: value}$v{property: value}...
+
+Each property is separated by $v and wrapped in curly braces {}.
+
+EMBED PROPERTIES:
+-----------------
+
+color:
+  Sets the embed color (hex code)
+  Syntax: $v{color: #hex}
+  Example: $v{color: #ff5733}
+
+author:
+  Sets the author field with optional icon and URL
+  Syntax: $v{author: name && icon_url && url}
+  Example: $v{author: John Doe && https://example.com/avatar.png}
+  Example: $v{author: John Doe && https://example.com/avatar.png && https://example.com}
+
+title:
+  Sets the embed title
+  Syntax: $v{title: text}
+  Example: $v{title: Welcome to the Server!}
+
+description:
+  Sets the embed description (main body text)
+  Syntax: $v{description: text}
+  Example: $v{description: This is the main content of the embed}
+
+thumbnail:
+  Sets a small image in the top-right corner
+  Syntax: $v{thumbnail: url}
+  Example: $v{thumbnail: https://example.com/image.png}
+
+image:
+  Sets a large image at the bottom of the embed
+  Syntax: $v{image: url}
+  Example: $v{image: https://example.com/banner.png}
+
+footer:
+  Sets the footer text with optional icon
+  Syntax: $v{footer: text && icon_url}
+  Example: $v{footer: Thanks for joining!}
+  Example: $v{footer: Thanks for joining! && https://example.com/icon.png}
+
+field:
+  Adds a field with name, value, and optional inline setting
+  Syntax: $v{field: name && value && inline}
+  Example: $v{field: Rules && Follow the rules! && false}
+  Example: $v{field: Members && 100 && true}
+  Note: inline can be "true" or "false" (default: false)
+
+timestamp:
+  Adds the current timestamp to the embed
+  Syntax: $v{timestamp}
+  Example: $v{timestamp}
+
+content: / message:
+  Sets text content outside the embed (above it)
+  Syntax: $v{content: text} or $v{message: text}
+  Example: $v{content: Hey everyone!}
+
+FULL EMBED EXAMPLE:
+-------------------
+{embed}$v{color: #5865F2}$v{author: Server Bot && {guild.icon}}$v{title: Welcome!}$v{description: Welcome to **{guild.name}**, {user.mention}!}$v{thumbnail: {user.avatar}}$v{field: Members && {guild.count} && true}$v{field: Rules && Check #rules && true}$v{image: {guild.banner}}$v{footer: Enjoy your stay! && {guild.icon}}$v{timestamp}
+
+--------------------------------------------------------------------------------
+                          CONTAINER SYNTAX (Components V2)
+--------------------------------------------------------------------------------
+
+Format: {container}$v{property: value}$v{property: value}...
+
+Containers are Discord's newer component-based messages with more flexibility.
+
+CONTAINER PROPERTIES:
+---------------------
+
+color:
+  Sets the accent color of the container
+  Syntax: $v{color: #hex}
+  Example: $v{color: #ff5733}
+
+text:
+  Adds a text display element
+  Syntax: $v{text: content}
+  Example: $v{text: Welcome to the server!}
+
+separator:
+  Adds a visual separator line
+  Syntax: $v{separator} or $v{separator:large}
+  Example: $v{separator}
+  Example: $v{separator:large}
+
+section:
+  Adds a section with text and optional thumbnail
+  Syntax: $v{section: text && thumbnail_url}
+  Example: $v{section: Check out our rules!}
+  Example: $v{section: User Profile && {user.avatar}}
+
+image:
+  Adds a single image to the container
+  Syntax: $v{image: url}
+  Example: $v{image: https://example.com/image.png}
+
+gallery:
+  Adds multiple images in a gallery
+  Syntax: $v{gallery: url1 && url2 && url3}
+  Example: $v{gallery: https://example.com/1.png && https://example.com/2.png}
+
+content: / message:
+  Sets text content above the container
+  Syntax: $v{content: text} or $v{message: text}
+  Example: $v{content: Hey {user.mention}!}
+
+FULL CONTAINER EXAMPLE:
+-----------------------
+{container}$v{color: #5865F2}$v{content: Welcome!}$v{text: # Welcome to {guild.name}!}$v{separator}$v{section: {user.name} just joined! && {user.avatar}}$v{separator:large}$v{image: {guild.banner}}$v{button: https://discord.gg/example && Join Discord}
+
+--------------------------------------------------------------------------------
+                              BUTTONS
+--------------------------------------------------------------------------------
+
+Buttons can be added to both embeds and containers.
+
+Syntax: $v{button: style_or_url && label && emoji}
+
+BUTTON STYLES:
+  • Link button: Use a URL as the first parameter
+  • primary / blue    - Blue button
+  • secondary / gray / grey - Gray button
+  • success / green   - Green button
+  • danger / red      - Red button
+
+Note: Non-link buttons are display-only (no custom actions)
+
+EXAMPLES:
+---------
+Link button:
+  $v{button: https://discord.gg/example && Join Server}
+  $v{button: https://example.com && Visit Website && 🌐}
+
+Colored buttons:
+  $v{button: primary && Click Me}
+  $v{button: green && Success && ✅}
+  $v{button: red && Danger && ⚠️}
+  $v{button: gray && Cancel}
+
+--------------------------------------------------------------------------------
+                              VARIABLES
+--------------------------------------------------------------------------------
+
+Variables are placeholders that get replaced with actual values when the
+message is sent. Use them in embeds, containers, and plain text messages.
+
+GUILD (SERVER) VARIABLES:
+-------------------------
+{guild.name}                    - Server name
+{guild.id}                      - Server ID
+{guild.count}                   - Member count
+{guild.shard}                   - Shard ID
+{guild.owner_id}                - Owner's user ID
+{guild.created_at}              - Creation date (YYYY-MM-DD HH:MM:SS UTC)
+{guild.created_at_timestamp}    - Creation Unix timestamp
+{guild.emoji_count}             - Number of emojis
+{guild.role_count}              - Number of roles
+{guild.boost_count}             - Number of boosts
+{guild.boost_tier}              - Boost tier (0-3 or N/A)
+{guild.preferred_locale}        - Server locale
+{guild.key_features}            - Server features (comma-separated)
+{guild.icon}                    - Server icon URL
+{guild.banner}                  - Server banner URL
+{guild.splash}                  - Invite splash URL
+{guild.discovery}               - Discovery splash URL
+{guild.max_presences}           - Max presences
+{guild.max_members}             - Max members
+{guild.max_video_channel_users} - Max video channel users
+{guild.afk_timeout}             - AFK timeout in seconds
+{guild.afk_channel}             - AFK channel name
+{guild.channels}                - First 20 channel names
+{guild.channels_count}          - Total channel count
+{guild.text_channels}           - First 20 text channel names
+{guild.text_channels_count}     - Total text channel count
+{guild.voice_channels}          - First 20 voice channel names
+{guild.voice_channels_count}    - Total voice channel count
+{guild.category_channels}       - First 20 category names
+{guild.category_channels_count} - Total category count
+{guild.vanity}                  - Vanity URL code
+
+USER VARIABLES:
+---------------
+{user}                          - Username#discriminator or just username
+{user.id}                       - User ID
+{user.mention}                  - User mention (@user)
+{user.name}                     - Username
+{user.tag}                      - Discriminator (or "0" for new usernames)
+{user.avatar}                   - Avatar URL
+{user.guild_avatar}             - Server-specific avatar URL
+{user.display_avatar}           - Display avatar URL (guild or global)
+{user.joined_at}                - Join date (YYYY-MM-DD HH:MM:SS UTC)
+{user.joined_at_timestamp}      - Join Unix timestamp
+{user.created_at}               - Account creation date
+{user.created_at_timestamp}     - Account creation Unix timestamp
+{user.display_name}             - Display name (nickname or username)
+{user.boost}                    - "Yes" or "No" if boosting
+{user.boost_since}              - Boost start date
+{user.boost_since_timestamp}    - Boost start Unix timestamp
+{user.color}                    - User's role color (#hex)
+{user.top_role}                 - Top role name
+{user.role_list}                - First 20 roles (mentions)
+{user.role_text_list}           - First 20 roles (names)
+{user.bot}                      - "Yes" or "No" if bot
+
+CHANNEL VARIABLES:
+------------------
+{channel.name}                  - Channel name
+{channel.id}                    - Channel ID
+{channel.mention}               - Channel mention (#channel)
+{channel.topic}                 - Channel topic
+{channel.type}                  - Channel type
+{channel.category_id}           - Parent category ID
+{channel.category_name}         - Parent category name
+{channel.position}              - Channel position
+{channel.slowmode_delay}        - Slowmode in seconds
+
+DATE/TIME VARIABLES (PST):
+--------------------------
+{date.now}                      - Current date (YYYY-MM-DD)
+{date.now_proper}               - Current date (Month DD, YYYY)
+{date.now_short}                - Current date (Mon DD, YYYY)
+{date.now_shorter}              - Current date (MM/DD/YY)
+{time.now}                      - Current time (HH:MM AM/PM)
+{time.now_military}             - Current time (HH:MM 24h)
+
+DATE/TIME VARIABLES (UTC):
+--------------------------
+{date.utc_timestamp}            - Current Unix timestamp
+{date.utc_now}                  - Current UTC date (YYYY-MM-DD)
+{date.utc_now_proper}           - Current UTC date (Month DD, YYYY)
+{date.utc_now_short}            - Current UTC date (Mon DD, YYYY)
+{date.utc_now_shorter}          - Current UTC date (MM/DD/YY)
+{time.utc_now}                  - Current UTC time (HH:MM AM/PM)
+{time.utc_now_military}         - Current UTC time (HH:MM 24h)
+
+--------------------------------------------------------------------------------
+                              FLAGS
+--------------------------------------------------------------------------------
+
+Flags modify how messages are sent. Add them at the END of your message.
+
+AVAILABLE FLAGS:
+----------------
+
+--reply
+  Makes the bot reply to the triggering message (autoresponder only)
+  Example: Hello {user.mention}! --reply
+
+--not_strict
+  Triggers on partial matches instead of exact matches (autoresponder only)
+  Without: "hello" only triggers on exactly "hello"
+  With: "hello" triggers on "hello there", "say hello", etc.
+  Example: Hi there! --not_strict
+
+--delete N
+  Deletes the bot's response after N seconds (1-10) (autoresponder only)
+  Example: This message will disappear! --delete 5
+
+--mention
+  Allows @everyone, @here, and role mentions to actually ping
+  Without this flag, mentions are displayed but don't ping
+  Example: {embed}$v{description: @everyone check this out!} --mention
+
+COMBINING FLAGS:
+----------------
+You can combine multiple flags:
+  Hello {user.mention}! --reply --not_strict --delete 5
+
+--------------------------------------------------------------------------------
+                          3. USAGE EXAMPLES
+--------------------------------------------------------------------------------
+
+CREATEEMBED EXAMPLES:
+---------------------
+
+Simple embed:
+  !createembed {embed}$v{title: Hello World}$v{description: This is a test}
+
+Embed with color and image:
+  !createembed {embed}$v{color: #ff0000}$v{title: Red Alert}$v{image: https://example.com/alert.png}
+
+Full featured embed:
+  !createembed {embed}$v{color: #5865F2}$v{author: Bot && https://example.com/bot.png}$v{title: Announcement}$v{description: Important news!}$v{field: Info && Details here && false}$v{thumbnail: https://example.com/thumb.png}$v{footer: Posted today}$v{timestamp}
+
+Container with sections:
+  !createembed {container}$v{color: #00ff00}$v{text: # Welcome}$v{separator}$v{section: Profile && https://example.com/avatar.png}$v{button: https://discord.gg/example && Join}
+
+AUTORESPONDER EXAMPLES:
+-----------------------
+
+Simple text response:
+  !ar add hello, Hey there {user.mention}!
+
+Response with reply:
+  !ar add hi, Hello! How are you? --reply
+
+Partial match trigger:
+  !ar add bye, Goodbye {user.name}! --not_strict
+
+Self-deleting response:
+  !ar add ping, Pong! --delete 3
+
+Embed response:
+  !ar add rules, {embed}$v{color: #ff0000}$v{title: Server Rules}$v{description: 1. Be nice\n2. No spam\n3. Have fun!}
+
+Combined flags:
+  !ar add test, Testing! --reply --not_strict --delete 5
+
+WELCOME MESSAGE EXAMPLES:
+-------------------------
+
+Simple welcome:
+  !welcome add #welcome Welcome {user.mention} to {guild.name}!
+
+Embed welcome:
+  !welcome add #welcome {embed}$v{color: #00ff00}$v{title: Welcome!}$v{description: Hey {user.mention}, welcome to **{guild.name}**!}$v{thumbnail: {user.avatar}}$v{footer: Member #{guild.count}}
+
+Container welcome:
+  !welcome add #welcome {container}$v{color: #5865F2}$v{text: # Welcome to {guild.name}!}$v{section: {user.name} just joined! && {user.avatar}}$v{button: https://discord.gg/rules && Read Rules}
+
+LEAVE MESSAGE EXAMPLES:
+-----------------------
+
+Simple leave:
+  !leave add #goodbye {user.name} has left the server.
+
+Embed leave:
+  !leave add #goodbye {embed}$v{color: #ff0000}$v{description: **{user.name}** has left us. We now have {guild.count} members.}
+
+BOOST MESSAGE EXAMPLES:
+-----------------------
+
+Simple boost:
+  !boost add #boosts Thank you {user.mention} for boosting! 🎉
+
+Embed boost:
+  !boost add #boosts {embed}$v{color: #f47fff}$v{title: New Boost!}$v{description: {user.mention} just boosted the server!\nWe now have **{guild.boost_count}** boosts!}$v{thumbnail: {user.avatar}}
+
+================================================================================
+                                   SUMMARY
+================================================================================
+
+Total Commands: 67
+
+Categories:
+  • Customize   - 1 command group (4 subcommands)
+  • Information - 8 commands
+  • Moderation  - 32 commands
+  • Server      - 14 command groups
+  • Utility     - 7 commands
+  • Nonsense    - 1 command group
+
+Embed Features:
+  • Traditional embeds with full customization
+  • Components V2 containers with modern UI
+  • 60+ dynamic variables for personalization
+  • Buttons (link and styled)
+  • Flags for reply, partial matching, auto-delete, and mentions
+
+================================================================================

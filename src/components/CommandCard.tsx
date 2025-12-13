@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Command } from '../utils/types';
 import { Copy, Check, Star } from 'lucide-react';
+import SpotlightCard from './SpotlightCard';
 
 interface Props {
     command: Command;
@@ -40,73 +41,77 @@ const CommandCard: React.FC<Props> = ({ command }) => {
     const hasSpecialIcon = command.name.includes('self') || command.name.includes('premium');
 
     return (
-        <div className="command-card group relative bg-[#0d0d0d] border border-white/[0.08] rounded-xl p-5 hover:border-white/20 transition-all duration-300 flex flex-col gap-4">
+        <SpotlightCard className="h-full rounded-2xl">
+            <div className="relative p-6 flex flex-col gap-4 h-full">
 
-            {/* Copy Button */}
-            <button
-                onClick={copyToClipboard}
-                className={`absolute top-4 right-4 p-2 rounded-lg transition-all ${copied
+                {/* Copy Button */}
+                <button
+                    onClick={copyToClipboard}
+                    className={`absolute top-5 right-5 p-2 rounded-lg transition-all z-20 ${copied
                         ? 'text-green-400 bg-green-500/10'
                         : 'text-gray-600 hover:text-white hover:bg-white/10'
-                    }`}
-                title="Copy command"
-            >
-                {copied ? <Check size={14} /> : <Copy size={14} />}
-            </button>
+                        }`}
+                    title="Copy command"
+                >
+                    {copied ? <Check size={14} /> : <Copy size={14} />}
+                </button>
 
-            {/* Command Name */}
-            <div className="flex items-center gap-2 pr-8">
-                {hasSpecialIcon && (
-                    <Star size={14} className="text-yellow-400 fill-yellow-400" />
-                )}
-                <h3 className="text-white font-semibold text-base tracking-tight">
-                    {command.name}
-                </h3>
-            </div>
+                {/* Command Name */}
+                <div className="flex items-center gap-2 pr-8">
+                    <div className={`p-2 rounded-lg border flex items-center justify-center ${hasSpecialIcon
+                            ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' // Gold for special
+                            : 'bg-white/5 border-white/10 text-gray-400'
+                        }`}>
+                        {hasSpecialIcon ? <Star size={16} fill="currentColor" /> : <span className="text-xs font-bold font-mono">/</span>}
+                    </div>
+                    <div className="flex flex-col">
+                        <h3 className="text-white font-bold text-lg tracking-tight">
+                            {command.name}
+                        </h3>
+                    </div>
+                </div>
 
-            {/* Description */}
-            <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">
-                {command.description}
-            </p>
+                {/* Description */}
+                <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 flex-grow">
+                    {command.description}
+                </p>
 
-            {/* Arguments Section */}
-            <div className="flex flex-col gap-2">
-                <span className="text-gray-500 text-xs font-medium">arguments</span>
-                <div className="flex flex-wrap gap-1.5">
-                    {args.length > 0 ? (
-                        args.map((arg, idx) => (
-                            <span
-                                key={idx}
-                                className="inline-flex items-center bg-white/[0.06] border border-white/[0.08] text-gray-400 text-xs px-2.5 py-1 rounded-md font-medium"
-                            >
-                                {arg}
+                <div className="h-px w-full bg-white/5 my-1"></div>
+
+                {/* Footer Info */}
+                <div className="flex items-center justify-between gap-4 mt-auto">
+                    {/* Args */}
+                    <div className="flex flex-wrap gap-1.5 overflow-hidden">
+                        {args.length > 0 ? (
+                            args.slice(0, 2).map((arg, idx) => (
+                                <span
+                                    key={idx}
+                                    className="inline-flex items-center bg-white/[0.04] border border-white/[0.06] text-gray-500 text-[10px] px-2 py-0.5 rounded-full font-medium uppercase tracking-wider"
+                                >
+                                    {arg}
+                                </span>
+                            ))
+                        ) : (
+                            <span className="text-gray-700 text-[10px] uppercase tracking-wider font-medium">No Args</span>
+                        )}
+                        {args.length > 2 && (
+                            <span className="text-gray-600 text-[10px] px-1">+{args.length - 2}</span>
+                        )}
+                    </div>
+
+                    {/* Permission Badge */}
+                    <div className="flex-shrink-0">
+                        {command.permissions && command.permissions.length > 0 && command.permissions[0] ? (
+                            <span className="inline-flex items-center text-[10px] text-gray-500 font-medium bg-white/[0.02] border border-white/5 px-2 py-0.5 rounded-full capitalize">
+                                {command.permissions[0].replace(/_/g, ' ').toLowerCase()}
                             </span>
-                        ))
-                    ) : (
-                        <span className="text-gray-600 text-xs">none</span>
-                    )}
+                        ) : (
+                            <span className="text-gray-700 text-[10px] font-medium">Free</span>
+                        )}
+                    </div>
                 </div>
             </div>
-
-            {/* Permissions Section */}
-            <div className="flex flex-col gap-2">
-                <span className="text-gray-500 text-xs font-medium">permissions</span>
-                <div className="flex flex-wrap gap-1.5">
-                    {command.permissions && command.permissions.length > 0 && command.permissions[0] ? (
-                        command.permissions.map((perm, idx) => (
-                            <span
-                                key={idx}
-                                className="inline-flex items-center bg-white/[0.06] border border-white/[0.08] text-gray-400 text-xs px-2.5 py-1 rounded-md font-medium capitalize"
-                            >
-                                {perm.replace(/_/g, ' ')}
-                            </span>
-                        ))
-                    ) : (
-                        <span className="text-gray-600 text-xs">none</span>
-                    )}
-                </div>
-            </div>
-        </div>
+        </SpotlightCard>
     );
 };
 

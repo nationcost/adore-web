@@ -1,97 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>adore</title>
-    
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://adore.rest" />
-    <meta property="og:title" content="adore" />
-    <meta property="og:description" content="A free premium multi-purpose bot to make management and moderation easy." />
-    <meta property="og:image" content="https://adore.rest/media/avatar/avatar.jpeg" />
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:url" content="https://adore.rest" />
-    <meta name="twitter:title" content="adore" />
-    <meta name="twitter:description" content="A free premium multi-purpose bot to make management and moderation easy." />
-    <meta name="twitter:image" content="https://adore.rest/media/avatar/avatar.jpeg" />
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              blurple: '#5865F2',
-              'blurple-dark': '#4752C4',
-              dark: {
-                950: '#000000',
-                900: '#050505',
-                800: '#0A0A0A',
-                750: '#111111',
-                700: '#161616',
-                600: '#262626',
-              },
-              misa: {
-                100: '#FFE4E9',
-                200: '#FFB7C5',
-                300: '#FF8FAB',
-                400: '#FB6F92',
-                500: '#E11D48',
-              },
-              matte: {
-                black: '#000000',
-                brown: '#1A1A1A',
-                accent: '#333333',
-              }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>adore</title>
+  <link rel="icon" type="image/png" href="/media/adore-logo.png" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://adore.rest" />
+  <meta property="og:title" content="adore" />
+  <meta property="og:description" content="A free premium multi-purpose bot to make management and moderation easy." />
+  <meta property="og:image" content="https://adore.rest/media/adore-logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://adore.rest" />
+  <meta name="twitter:title" content="adore" />
+  <meta name="twitter:description" content="A free premium multi-purpose bot to make management and moderation easy." />
+  <meta name="twitter:image" content="https://adore.rest/media/adore-logo.png" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            blurple: '#5865F2',
+            'blurple-dark': '#4752C4',
+            dark: {
+              950: '#000000',
+              900: '#050505',
+              800: '#0A0A0A',
+              750: '#111111',
+              700: '#161616',
+              600: '#262626',
             },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+            misa: {
+              100: '#FFE4E9',
+              200: '#FFB7C5',
+              300: '#FF8FAB',
+              400: '#FB6F92',
+              500: '#E11D48',
             },
-            animation: {
-              'fade-in': 'fadeIn 0.3s ease-out forwards',
-              'slide-up': 'slideUp 0.4s ease-out forwards',
-              'scale-in': 'scaleIn 0.2s ease-out forwards',
-              'menu-spring': 'menuSpring 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+            matte: {
+              black: '#000000',
+              brown: '#1A1A1A',
+              accent: '#333333',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.3s ease-out forwards',
+            'slide-up': 'slideUp 0.4s ease-out forwards',
+            'scale-in': 'scaleIn 0.2s ease-out forwards',
+            'menu-spring': 'menuSpring 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
             },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
-              },
-              slideUp: {
-                '0%': { opacity: '0', transform: 'translateY(10px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              },
-              scaleIn: {
-                '0%': { opacity: '0', transform: 'scale(0.95)' },
-                '100%': { opacity: '1', transform: 'scale(1)' },
-              },
-              menuSpring: {
-                '0%': { 
-                  opacity: '0', 
-                  transform: 'translateY(-20px) scale(0.96)', 
-                  filter: 'blur(10px)' 
-                },
-                '100%': { 
-                  opacity: '1', 
-                  transform: 'translateY(0) scale(1)', 
-                  filter: 'blur(0px)' 
-                },
-              }
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(10px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
             },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.95)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
+            },
+            menuSpring: {
+              '0%': {
+                opacity: '0',
+                transform: 'translateY(-20px) scale(0.96)',
+                filter: 'blur(10px)'
+              },
+              '100%': {
+                opacity: '1',
+                transform: 'translateY(0) scale(1)',
+                filter: 'blur(0px)'
+              },
+            }
           },
         },
-      }
-    </script>
+      },
+    }
+  </script>
 
 
   <script type="importmap">
@@ -110,10 +113,12 @@
   }
 }
 </script>
-  <script type="module" crossorigin src="/assets/index-BU_w7Hli.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-CDu3hXkm.css">
+  <script type="module" crossorigin src="/assets/index-DYBFH2mQ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BbUUq-63.css">
 </head>
-  <body>
-    <div id="root"></div>
-  </body>
+
+<body>
+  <div id="root"></div>
+</body>
+
 </html>

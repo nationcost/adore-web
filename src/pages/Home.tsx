@@ -76,7 +76,7 @@ const Home: React.FC = () => {
       {/* HERO SECTION */}
       <section className="min-h-[60vh] md:min-h-[85vh] flex flex-col justify-center items-center text-center w-full max-w-6xl mx-auto animate-fade-in pt-8 md:pt-20">
         <img
-          src="/media/angel-wings.png"
+          src="/media/adore-logo.png"
           alt="ADORE Angel"
           className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] mb-4 md:mb-6"
         />
@@ -120,7 +120,7 @@ const Home: React.FC = () => {
         </div>
 
         <p className="mt-8 md:mt-12 text-xs md:text-sm text-gray-500 font-medium">
-          Powering <span className="text-white font-bold">508,413</span> users across <span className="text-white font-bold">2,028</span> communities
+          Powering <span className="text-white font-bold">68,329</span> users across <span className="text-white font-bold">94</span> communities
         </p>
       </section>
 

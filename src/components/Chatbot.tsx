@@ -89,8 +89,8 @@ const Chatbot: React.FC = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-[0_0_30px_-5px_rgba(255,255,255,0.2)] transition-all duration-500 hover:scale-110 active:scale-95 ${isOpen
-            ? 'bg-white text-black rotate-90'
-            : 'bg-white text-black hover:bg-gray-200 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.4)]'
+          ? 'bg-white text-black rotate-90'
+          : 'bg-white text-black hover:bg-gray-200 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.4)]'
           }`}
       >
         {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
@@ -99,8 +99,8 @@ const Chatbot: React.FC = () => {
       {/* Chat Window */}
       <div
         className={`fixed bottom-24 right-6 z-50 w-[90vw] md:w-96 h-[500px] max-h-[80vh] flex flex-col bg-white/[0.04] backdrop-blur-3xl backdrop-saturate-150 border border-white/10 rounded-[2.5rem] shadow-2xl shadow-black/50 overflow-hidden transition-all duration-500 origin-bottom-right ${isOpen
-            ? 'opacity-100 scale-100 translate-y-0'
-            : 'opacity-0 scale-90 translate-y-10 pointer-events-none'
+          ? 'opacity-100 scale-100 translate-y-0'
+          : 'opacity-0 scale-90 translate-y-10 pointer-events-none'
           }`}
       >
         {/* Inner Highlight */}
@@ -129,15 +129,15 @@ const Chatbot: React.FC = () => {
               className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
             >
               <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center border ${msg.role === 'user'
-                  ? 'bg-gray-700 border-gray-600'
-                  : 'bg-white text-black border-white'
+                ? 'bg-gray-700 border-gray-600'
+                : 'bg-white text-black border-white'
                 }`}>
-                {msg.role === 'user' ? <div className="w-2 h-2 bg-gray-400 rounded-full" /> : <img src="/media/angel-wings.png" alt="ADORE" className="w-5 h-5 object-contain" />}
+                {msg.role === 'user' ? <div className="w-2 h-2 bg-gray-400 rounded-full" /> : <img src="/media/adore-pfp.png" alt="ADORE" className="w-5 h-5 object-contain" />}
               </div>
 
               <div className={`max-w-[80%] p-3.5 rounded-2xl text-sm leading-relaxed border whitespace-pre-wrap ${msg.role === 'user'
-                  ? 'bg-white/10 border-white/10 text-white rounded-tr-none'
-                  : 'bg-black/40 border-white/5 text-gray-300 rounded-tl-none shadow-lg'
+                ? 'bg-white/10 border-white/10 text-white rounded-tr-none'
+                : 'bg-black/40 border-white/5 text-gray-300 rounded-tl-none shadow-lg'
                 }`}>
                 {formatMessage(msg.text)}
               </div>
@@ -146,7 +146,7 @@ const Chatbot: React.FC = () => {
           {isLoading && (
             <div className="flex gap-3">
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white border border-white flex items-center justify-center">
-                <img src="/media/angel-wings.png" alt="ADORE" className="w-5 h-5 object-contain" />
+                <img src="/media/adore-pfp.png" alt="ADORE" className="w-5 h-5 object-contain" />
               </div>
               <div className="p-3.5 bg-black/40 border border-white/5 rounded-2xl rounded-tl-none flex items-center gap-2 text-gray-400 text-sm">
                 <Loader2 size={16} className="animate-spin" />

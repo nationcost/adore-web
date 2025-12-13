@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Using the specific image URL provided by the user
-  const [pfpUrl] = useState('/media/angel-wings.png');
+  const [pfpUrl] = useState('/media/adore-pfp.png');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,8 +67,8 @@ const Navbar: React.FC = () => {
       <header className="fixed top-6 left-0 right-0 z-[60] flex justify-center px-4 pointer-events-none">
         <nav
           className={`pointer-events-auto relative flex items-center justify-between px-3 py-2.5 rounded-full transition-all duration-500 ease-out ${isScrolled || mobileMenuOpen
-              ? 'bg-black/40 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-3xl'
-              : 'bg-black/20 backdrop-blur-xl border border-white/5 shadow-lg w-full max-w-2xl'
+            ? 'bg-black/40 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-3xl'
+            : 'bg-black/20 backdrop-blur-xl border border-white/5 shadow-lg w-full max-w-2xl'
             }`}
         >
           {/* Logo / Home Icon */}
@@ -94,6 +94,9 @@ const Navbar: React.FC = () => {
             </NavLink>
             <NavLink to="/faq" className={navLinkClass}>
               Information
+            </NavLink>
+            <NavLink to="/doc" className={navLinkClass}>
+              Doc
             </NavLink>
           </div>
 
@@ -145,6 +148,15 @@ const Navbar: React.FC = () => {
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Information
+                    </NavLink>
+                    <div className="w-[85%] h-px bg-white/5 mx-auto"></div>
+
+                    <NavLink
+                      to="/doc"
+                      className={mobileLinkClass}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Doc
                     </NavLink>
                   </div>
 
