@@ -78,7 +78,7 @@ const Home: React.FC = () => {
         <img
           src="/media/adore-logo.png"
           alt="ADORE Angel"
-          className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.15)] mb-4 md:mb-6"
+          className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain mb-4 md:mb-6"
         />
         <h1 className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tight text-white leading-none select-none drop-shadow-2xl">
           ADORE
@@ -94,28 +94,18 @@ const Home: React.FC = () => {
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-2 md:mt-4 w-full sm:w-auto px-6 sm:px-0">
           <a
             href="/server"
-            className="group relative flex items-center justify-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 w-full sm:w-auto overflow-hidden backdrop-blur-xl"
+            className="flex items-center justify-center gap-3 bg-white/[0.05] hover:bg-white/[0.1] text-white border border-white/10 px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-200 w-full sm:w-auto hover:scale-[1.02]"
           >
-            {/* Inner Top Highlight */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
-
-            <DiscordLogo size={20} className="relative z-10 md:w-6 md:h-6" />
-            <span className="relative z-10">Join Discord</span>
+            <DiscordLogo size={20} className="md:w-6 md:h-6" />
+            <span>Join Discord</span>
           </a>
 
           <a
             href="/invite"
-            className="group relative flex items-center justify-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 w-full sm:w-auto overflow-hidden backdrop-blur-xl"
+            className="flex items-center justify-center gap-3 bg-white text-black border border-white px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-200 w-full sm:w-auto hover:bg-gray-200 hover:scale-[1.02]"
           >
-            {/* Inner Top Highlight */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
-
-            <span className="relative z-10">Invite Bot</span>
-            <ArrowRight size={18} className="relative z-10 md:w-5 md:h-5" />
+            <span>Invite Bot</span>
+            <ArrowRight size={18} className="md:w-5 md:h-5" />
           </a>
         </div>
 

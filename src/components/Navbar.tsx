@@ -66,10 +66,7 @@ const Navbar: React.FC = () => {
 
       <header className="fixed top-6 left-0 right-0 z-[60] flex justify-center px-4 pointer-events-none">
         <nav
-          className={`pointer-events-auto relative flex items-center justify-between px-3 py-2.5 rounded-full transition-all duration-500 ease-out ${isScrolled || mobileMenuOpen
-            ? 'bg-black/40 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-3xl'
-            : 'bg-black/20 backdrop-blur-xl border border-white/5 shadow-lg w-full max-w-2xl'
-            }`}
+          className={`pointer-events-auto relative flex items-center justify-between px-3 py-2.5 rounded-full transition-all duration-500 ease-out border border-white/10 bg-[#0F1117]/80 backdrop-blur-md w-full max-w-2xl ${isScrolled || mobileMenuOpen ? 'shadow-lg' : ''}`}
         >
           {/* Logo / Home Icon */}
           <NavLink
@@ -106,15 +103,10 @@ const Navbar: React.FC = () => {
               href={links.discordInvite}
               target="_blank"
               rel="noreferrer"
-              className="group relative flex items-center gap-2 bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 hover:border-white/20 hover:shadow-2xl hover:shadow-white/5 overflow-hidden active:scale-95 backdrop-blur-xl"
+              className="flex items-center gap-2 bg-white/[0.05] hover:bg-white/[0.1] text-white border border-white/10 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200"
             >
-              {/* Inner Top Highlight */}
-              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
-
-              <DiscordLogo size={18} className="relative z-10" />
-              <span className="relative z-10">Discord</span>
+              <DiscordLogo size={18} />
+              <span>Discord</span>
             </a>
           </div>
 

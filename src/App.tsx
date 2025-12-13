@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Outlet, Navigate }
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-import Background from './components/Background';
+
 import Home from './pages/Home';
 import Commands from './pages/Commands';
 import FAQ from './pages/FAQ';
@@ -67,7 +67,7 @@ const MainLayout: React.FC = () => {
       >
 
         {/* Shared Background */}
-        <Background />
+
 
         <Navbar />
 
