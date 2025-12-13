@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # GitBook Proxy
+  # Note: This requires mod_proxy and mod_proxy_http to be enabled on your cPanel server.
+  # If the site breaks or shows 500 Error, remove the [P] flags or ask your host to enable mod_proxy.
+  RewriteRule ^docs$ https://proxy.gitbook.site/sites/site_RHK6F/ [P,L]
+  RewriteRule ^docs/(.*)$ https://proxy.gitbook.site/sites/site_RHK6F/$1 [P,L]
+
+  # SPA Routing
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
