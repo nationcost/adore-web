@@ -3,10 +3,10 @@
   RewriteBase /
 
   # GitBook Proxy
-  # Note: This requires mod_proxy and mod_proxy_http to be enabled on your cPanel server.
-  # If the site breaks or shows 500 Error, remove the [P] flags or ask your host to enable mod_proxy.
-  RewriteRule ^docs$ https://proxy.gitbook.site/sites/site_RHK6F/ [P,L]
-  RewriteRule ^docs/(.*)$ https://proxy.gitbook.site/sites/site_RHK6F/$1 [P,L]
+  # mod_proxy is disabled on your server, so we must use a Redirect instead.
+  # This will change the URL in the browser to the GitBook site.
+  RewriteRule ^docs$ https://proxy.gitbook.site/sites/site_RHK6F/ [R=301,L]
+  RewriteRule ^docs/(.*)$ https://proxy.gitbook.site/sites/site_RHK6F/$1 [R=301,L]
 
   # SPA Routing
   RewriteRule ^index\.html$ - [L]
