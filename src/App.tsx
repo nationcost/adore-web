@@ -26,7 +26,7 @@ const InviteRedirect = () => {
 
 const ServerRedirect = () => {
   React.useEffect(() => {
-    window.location.href = 'https://discord.gg/dyjn7wzdyH';
+    window.location.href = 'https://discord.com/invite/Aan7N9sGYp';
   }, []);
   return null;
 };
