@@ -1286,6 +1286,157 @@
       ],
       "syntax": "transcribe [url/attachment/reply]",
       "permission": "None"
+    },
+    {
+      "name": "steal",
+      "description": "Steal emojis or stickers from a message or by providing them directly",
+      "aliases": [
+        "yoink"
+      ],
+      "syntax": "steal [emojis...] or reply to message",
+      "permission": "manage_emojis"
+    },
+    {
+      "name": "emoji",
+      "description": "Manage server emojis",
+      "aliases": [],
+      "syntax": "emoji (subcommand)",
+      "permission": "manage_emojis"
+    },
+    {
+      "name": "emoji add",
+      "description": "Add emojis to the server",
+      "aliases": [],
+      "syntax": "emoji add (emojis...)",
+      "permission": "manage_emojis"
+    },
+    {
+      "name": "emoji remove",
+      "description": "Remove emojis from the server",
+      "aliases": [],
+      "syntax": "emoji remove (emojis...)",
+      "permission": "manage_emojis"
+    },
+    {
+      "name": "emoji list",
+      "description": "List all server emojis",
+      "aliases": [],
+      "syntax": "emoji list",
+      "permission": "None"
+    },
+    {
+      "name": "sticker",
+      "description": "Manage server stickers",
+      "aliases": [],
+      "syntax": "sticker (subcommand)",
+      "permission": "manage_emojis"
+    },
+    {
+      "name": "sticker add",
+      "description": "Add a sticker from a message link",
+      "aliases": [],
+      "syntax": "sticker add (message link)",
+      "permission": "manage_emojis"
+    },
+    {
+      "name": "sticker remove",
+      "description": "Remove a sticker by message link or name",
+      "aliases": [],
+      "syntax": "sticker remove (message link or name)",
+      "permission": "manage_emojis"
+    },
+    {
+      "name": "sticker list",
+      "description": "List all server stickers",
+      "aliases": [],
+      "syntax": "sticker list",
+      "permission": "None"
+    }
+  ],
+  "social": [
+    {
+      "name": "instagram",
+      "description": "View an Instagram profile",
+      "aliases": [
+        "ig",
+        "insta"
+      ],
+      "syntax": "instagram (username)",
+      "permission": "None"
+    },
+    {
+      "name": "tiktok",
+      "description": "View a TikTok profile",
+      "aliases": [
+        "tt"
+      ],
+      "syntax": "tiktok (username)",
+      "permission": "None"
+    },
+    {
+      "name": "twitter",
+      "description": "View a Twitter/X profile",
+      "aliases": [
+        "x",
+        "tweet"
+      ],
+      "syntax": "twitter (username)",
+      "permission": "None"
+    },
+    {
+      "name": "twitch",
+      "description": "View a Twitch channel",
+      "aliases": [
+        "ttv"
+      ],
+      "syntax": "twitch (username)",
+      "permission": "None"
+    },
+    {
+      "name": "snapchat",
+      "description": "View a Snapchat profile",
+      "aliases": [
+        "snap",
+        "sc"
+      ],
+      "syntax": "snapchat (username)",
+      "permission": "None"
+    },
+    {
+      "name": "roblox",
+      "description": "View a Roblox player profile",
+      "aliases": [
+        "rbx",
+        "rblx"
+      ],
+      "syntax": "roblox (username)",
+      "permission": "None"
+    },
+    {
+      "name": "valorant",
+      "description": "View a Valorant player profile",
+      "aliases": [
+        "valo",
+        "val"
+      ],
+      "syntax": "valorant (username#tag)",
+      "permission": "None"
+    },
+    {
+      "name": "github",
+      "description": "View a GitHub profile",
+      "aliases": [],
+      "syntax": "github (username)",
+      "permission": "None"
+    },
+    {
+      "name": "cashapp",
+      "description": "View a Cash App profile",
+      "aliases": [
+        "cash"
+      ],
+      "syntax": "cashapp (username)",
+      "permission": "None"
     }
   ],
   "fun": [
