@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Search, Terminal, Folder } from 'lucide-react';
 import CommandCard from '../components/CommandCard';
 import { commandsData } from '../utils/commands';
@@ -45,14 +46,43 @@ const getCategoryCounts = () => {
 const categoryCounts = getCategoryCounts();
 const categories = Array.from(new Set(allCommands.map(c => c.category))).sort();
 
-const getCategoryIcon = (category: string): React.ReactNode => {
-    return <Folder size={14} />;
-};
-
 const Commands: React.FC = () => {
-    const [activeCategory, setActiveCategory] = useState(categories[0] || 'Server');
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    // Determine initial category
+    // 1. Try to read from URL hash
+    // 2. Fallback to first available category
+    // 3. Fallback to 'Server' hardcoded default
+    const getInitialCategory = () => {
+        const hash = location.hash.replace('#', '').toLowerCase();
+        if (hash) {
+            const found = categories.find(c => c.toLowerCase() === hash);
+            if (found) return found;
+        }
+        return categories[0] || 'Server';
+    };
+
+    const [activeCategory, setActiveCategory] = useState(getInitialCategory);
     const [searchQuery, setSearchQuery] = useState('');
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+    // Sync activeCategory with URL hash changes
+    useEffect(() => {
+        const hash = location.hash.replace('#', '').toLowerCase();
+        if (hash) {
+            const found = categories.find(c => c.toLowerCase() === hash);
+            if (found && found !== activeCategory) {
+                setActiveCategory(found);
+            }
+        }
+    }, [location.hash, activeCategory]);
+
+    // Update URL when category changes via interaction
+    const handleCategoryChange = (category: string) => {
+        setActiveCategory(category);
+        setSearchQuery('');
+        navigate(`#${category.toLowerCase()}`, { replace: true });
+    };
 
     const gridCommands = useMemo(() => {
         let filtered = allCommands.filter(cmd => cmd.category === activeCategory);
@@ -61,7 +91,6 @@ const Commands: React.FC = () => {
             const query = searchQuery.toLowerCase();
             filtered = allCommands.filter(cmd =>
                 cmd.name.toLowerCase().includes(query) ||
-                cmd.description.toLowerCase().includes(query) ||
                 (cmd.aliases && cmd.aliases.some(alias => alias.toLowerCase().includes(query)))
             );
         }
@@ -85,7 +114,7 @@ const Commands: React.FC = () => {
 
                 {/* Search Bar - Rounder Style */}
                 <div className="w-full md:w-auto">
-                    <div className="relative flex items-center gap-3 bg-white/[0.05] border border-white/10 focus-within:border-white/20 rounded-xl px-5 py-3 transition-colors duration-200 w-full md:w-80">
+                    <div className="relative flex items-center gap-3 bg-[#0a0a0a] border border-white/5 focus-within:border-white/20 rounded-full px-5 py-3 transition-colors duration-200 w-full md:w-80">
                         <Search size={18} className="text-gray-500" />
                         <input
                             type="text"
@@ -107,18 +136,15 @@ const Commands: React.FC = () => {
                         return (
                             <button
                                 key={cat}
-                                onClick={() => {
-                                    setActiveCategory(cat);
-                                    setSearchQuery('');
-                                }}
-                                className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-colors duration-200 ${isActive
-                                    ? 'text-white bg-white/10'
-                                    : 'text-gray-500 hover:text-white hover:bg-white/5'
+                                onClick={() => handleCategoryChange(cat)}
+                                className={`flex items-center gap-3 px-6 py-3 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 border ${isActive
+                                    ? 'bg-[#0a0a0a] border-white/5 text-white'
+                                    : 'bg-transparent border-transparent text-gray-500 hover:text-gray-300 hover:bg-white/[0.02]'
                                     }`}
                             >
-                                <Folder size={16} className={isActive ? "text-white" : ""} />
+                                <Folder size={16} className={isActive ? "text-white" : "text-gray-500"} />
                                 <span className="capitalize tracking-wide">{cat}</span>
-                                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isActive
+                                <span className={`text-[10px] h-5 min-w-[1.25rem] px-1.5 flex items-center justify-center rounded-full ${isActive
                                     ? 'bg-white text-black font-bold'
                                     : 'bg-white/5 text-gray-500'
                                     }`}>

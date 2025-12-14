@@ -19,7 +19,7 @@ import { SpotlightProvider } from './components/SpotlightCard';
 // Redirect components
 const InviteRedirect = () => {
   React.useEffect(() => {
-    window.location.href = 'https://discord.com/oauth2/authorize?client_id=1439529198325596172';
+    window.location.href = 'https://discord.com/oauth2/authorize?client_id=1447649389563613214';
   }, []);
   return null;
 };

@@ -146,6 +146,13 @@
       ],
       "syntax": "membercount",
       "permission": "None"
+    },
+    {
+      "name": "ask",
+      "description": "Ask Adore a question about the bot (Premium)",
+      "aliases": [],
+      "syntax": "ask (question)",
+      "permission": "premium"
     }
   ],
   "moderation": [
@@ -613,45 +620,45 @@
       "permission": "manage_roles"
     },
     {
-      "name": "buttonresponse",
+      "name": "buttonresponder",
       "description": "Manage button responses on messages",
       "aliases": [],
-      "syntax": "buttonresponse (subcommand)",
+      "syntax": "buttonresponder (subcommand)",
       "permission": "manage_guild"
     },
     {
-      "name": "buttonresponse add",
+      "name": "buttonresponder add",
       "description": "Add a button response to a message",
       "aliases": [],
-      "syntax": "buttonresponse add (message link) (style) (emote) (name), (response)",
+      "syntax": "buttonresponder add (message link) (style) (emote) (name), (response)",
       "permission": "manage_guild"
     },
     {
-      "name": "buttonresponse remove",
+      "name": "buttonresponder remove",
       "description": "Remove a button response from a message",
       "aliases": [],
-      "syntax": "buttonresponse remove (message link) (button id)",
+      "syntax": "buttonresponder remove (message link) (button id)",
       "permission": "manage_guild"
     },
     {
-      "name": "buttonresponse removeall",
+      "name": "buttonresponder removeall",
       "description": "Remove all button responses from a message",
       "aliases": [],
-      "syntax": "buttonresponse removeall (message link)",
+      "syntax": "buttonresponder removeall (message link)",
       "permission": "manage_guild"
     },
     {
-      "name": "buttonresponse list",
+      "name": "buttonresponder list",
       "description": "List all button responses",
       "aliases": [],
-      "syntax": "buttonresponse list",
+      "syntax": "buttonresponder list",
       "permission": "manage_guild"
     },
     {
-      "name": "buttonresponse reset",
+      "name": "buttonresponder reset",
       "description": "Remove all button responses",
       "aliases": [],
-      "syntax": "buttonresponse reset",
+      "syntax": "buttonresponder reset",
       "permission": "manage_guild"
     },
     {
@@ -1268,6 +1275,16 @@
       "description": "List all your reminders",
       "aliases": [],
       "syntax": "remind list",
+      "permission": "None"
+    },
+    {
+      "name": "transcribe",
+      "description": "Transcribe audio or video to text",
+      "aliases": [
+        "transcript",
+        "ts"
+      ],
+      "syntax": "transcribe [url/attachment/reply]",
       "permission": "None"
     }
   ],
