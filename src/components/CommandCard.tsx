@@ -45,7 +45,7 @@ const CommandCard: React.FC<Props> = ({ command }) => {
     const argumentsText = args.length > 0 ? args.join(', ') : 'none';
 
     return (
-        <div className="h-full rounded-[2rem] bg-[#0a0a0a] border border-white/5 p-8 flex flex-col justify-between hover:border-white/10 transition-colors">
+        <div className="h-full rounded-[2rem] bg-[#121826] border border-white/5 p-8 flex flex-col justify-between hover:border-white/10 transition-colors">
             {/* Top Section */}
             <div className="relative mb-6">
                 <div className="flex justify-between items-start">
